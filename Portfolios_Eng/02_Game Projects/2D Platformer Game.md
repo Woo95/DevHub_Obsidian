@@ -3,8 +3,7 @@
 ## **Overview**
 This project is a **2D platformer mobile game** developed in a month as part of a coursework project in 2023. It covers the **core gameplay features** typical of the genre and is structured around a simple **finite state machine (FSM)** to manage overall game flow and state transitions.
 
-[**View Repository**](https://github.com/Woo95/Unity_Mobile_Game_Woo)
-[**Watch Demo**](https://youtu.be/klfbza0nP0Q)
+[**View Repository**](https://github.com/Woo95/Unity_Mobile_Game_Woo)<br/>[**Watch Demo**](https://youtu.be/klfbza0nP0Q)
 
 ---
 ## **Game Showcase**

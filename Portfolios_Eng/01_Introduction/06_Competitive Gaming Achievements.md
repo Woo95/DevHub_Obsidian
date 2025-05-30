@@ -7,5 +7,4 @@
 - CS:GO — **Global Elite** (Highest rank)
 
 ---
-Recognized and **invited by multiple pro teams** in *Apex Legends*,  
-I bring strategic insight and a deep understanding of game mechanics across genres.
+Recognized and **invited by multiple pro teams** in Apex Legends, I bring practical balancing instincts, deep mechanical insight, and a developer’s perspective on strategic systems and gameplay structure.

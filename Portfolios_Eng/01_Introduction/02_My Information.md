@@ -10,13 +10,13 @@ Chaewan Woo
 Suwon, South Korea
 
 ---
-![[00-04. Contact]]
+![[03_Contact]]
 
 ---
-![[00-05. Education]]
+![[04_Education]]
 
 ---
-![[00-06. Skills]]
+![[05_Skills]]
 
 ---
-![[00-07. Competitive Gaming Achievements]]
+![[06_Competitive Gaming Achievements]]

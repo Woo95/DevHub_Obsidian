@@ -1,15 +1,15 @@
 # **Hello World!**
 
-![[00-02. About Me]]
+![[01_About Me]]
 Welcome to my **developer hub**, a growing archive of my journey, skills, and projects.
 
 ---
 ## **Overview**
 
 Learn more about my **background**, **experience**, and **technical skills** through the pages below:
-- **[[00-03. My Information|My Information]]**
-- **[[Game Project Overview|Game Projects]]**
-- **[[Technical Notes Overview|Technical Notes]]**
+- **[[02_My Information|My Information]]**
+- **[[_Game Projects|Game Projects]]**
+- **[[_Technical Notes|Technical Notes]]**
 
 ---
 ## **Want to Explore More?**
@@ -23,4 +23,4 @@ Explore my **major work** — Discover my projects, tools, and ideas.
 	- [[Minecraft-Like Crafting System]]
 
 ---
-Didn't find what you were looking for? Reach out via the contact info in [[00-04. Contact|here]]
+Didn't find what you were looking for? Reach out via the contact info in [[03_Contact|here]]

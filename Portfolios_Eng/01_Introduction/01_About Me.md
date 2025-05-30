@@ -4,4 +4,4 @@ Hi! I'm **Chaewan Woo**, a passionate game developer from **S.Korea** who studie
 
 Good programmers write great code, but may struggle to reflect enjoyable gameplay. With a top 500 global ranking in several games, I can leverage the player’s perspective to create more immersive controls and enjoyable experiences.
 
-[My Resume](Resume.pdf)
+**[My Resume](Chaewan_Woo_Resume_Eng.pdf)**

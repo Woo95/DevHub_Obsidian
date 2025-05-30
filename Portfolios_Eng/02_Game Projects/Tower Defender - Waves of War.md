@@ -4,8 +4,7 @@
 This project is a **mobile tower defense game** developed in a month as part of a coursework project in 2023. The game challenges players to protect a central tower through 10 increasingly difficult waves by **gathering resources**, **building towers**, and **deploying autonomous units**.
 
 
-[**View Repository**](https://github.com/Woo95/Unity_Mobile_Game_Woo)
-[**Watch Demo**](https://youtu.be/sOtYVJ6maYU)
+[**View Repository**](https://github.com/Woo95/Unity_Mobile_Game_Woo)<br/>[**Watch Demo**](https://youtu.be/sOtYVJ6maYU)
 
 ---
 ## **Game Showcase**
