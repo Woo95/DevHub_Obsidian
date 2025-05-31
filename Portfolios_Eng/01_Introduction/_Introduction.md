@@ -23,4 +23,4 @@ Explore my **major work** — Discover my projects, libraries, and ideas.
 	- [[Minecraft-Like Crafting System]]
 
 ---
-Didn't find what you were looking for? Reach out via the contact info in [[Portfolios_Eng/01_Introduction/03_Contact|03_Contact]]
+Didn't find what you were looking for? Reach out via the contact info in [[Portfolios_Eng/01_Introduction/03_Contact|here]].
