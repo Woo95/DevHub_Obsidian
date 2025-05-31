@@ -8,8 +8,8 @@ Welcome to my **developer hub**, a growing archive of my journey, skills, and pr
 
 Learn more about my **background**, **experience**, and **technical skills** through the pages below:
 - **[[Portfolios_Eng/01_Introduction/02_My Information|My Information]]**
-- **[[_Game Projects|Game Projects]]**
-- **[[_Technical Notes|Technical Notes]]**
+- **[[Portfolios_Eng/02_Game Projects/_Game Projects|Game Projects]]**
+- **[[Portfolios_Eng/03_Technical Notes/_Technical Notes|Technical Notes]]**
 
 ---
 ## **Want to Explore More?**
