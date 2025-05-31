@@ -1,6 +1,6 @@
 # **Hello World!**
 
-![[01_About Me]]
+![[Portfolios_Eng/01_Introduction/01_About Me|01_About Me]]
 Welcome to my **developer hub**, a growing archive of my journey, skills, and projects.
 
 ---
@@ -23,4 +23,4 @@ Explore my **major work** — Discover my projects, libraries, and ideas.
 	- [[Minecraft-Like Crafting System]]
 
 ---
-Didn't find what you were looking for? Reach out via the contact info in [[03_Contact|here]]
+Didn't find what you were looking for? Reach out via the contact info in [[Portfolios_Eng/01_Introduction/03_Contact|03_Contact]]
