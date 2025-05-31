@@ -7,14 +7,14 @@ Welcome to my **developer hub**, a growing archive of my journey, skills, and pr
 ## **Overview**
 
 Learn more about my **background**, **experience**, and **technical skills** through the pages below:
-- **[[02_My Information|My Information]]**
+- **[[Portfolios_Eng/01_Introduction/02_My Information|My Information]]**
 - **[[_Game Projects|Game Projects]]**
 - **[[_Technical Notes|Technical Notes]]**
 
 ---
 ## **Want to Explore More?**
 
-Explore my **major work** — Discover my projects, tools, and ideas.
+Explore my **major work** — Discover my projects, libraries, and ideas.
 - **Projects**
 	- [[Self-Made Game Framework]]
 	- [[Italian Brainrot Survivor]]
