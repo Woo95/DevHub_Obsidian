@@ -6,6 +6,7 @@ virtual ~IMemoryPool() = default;
 ```
 
 ^da8d6e
+
 ## From CStaticMemoryPool\<T> Class
 ```cpp
 // returns the address of the next unused memory block in the pool
