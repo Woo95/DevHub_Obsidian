@@ -65,7 +65,7 @@ Handles **touch-based camera interaction** for mobile gameplay.
     - **One-finger drag** pans the camera.
     - **Two-finger pinch** zooms in or out.
 - [[Tower Defender - Waves of War Block References#^089f5d|void ClampCameraPosition()]]:
-	  - Ensures the camera view remains **within the game world bounds**.
+    - Ensures the camera view remains **within the game world bounds**.
 - [[Tower Defender - Waves of War Block References#^34e87e|void Zoom()]]:
 	- Adjusts **orthographic size** and recalculate the camera bounds to fit the current zoom level.
 
