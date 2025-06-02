@@ -1,8 +1,8 @@
 # **학력**
 - **University of Toronto**
   *Bachelor of Science in Computer Science, Mathematics, and Statistics*
-	- 4학년 과정 중 게임 프로그래밍 심화 과정을 위해 컬리지 프로그램으로 진학.
+	- 4학년 1학기 수료 중, 게임 개발에 매력을 느껴 George Brown 대학으로 진로 전환.
 - **George Brown College**
   *Advanced Diploma in Game Programming*
-	- 매 학기 우수생 명단에 이름을 올림.
+	- 매 학기 성적 우수생으로 선정.
 	- 4.0 만점 기준 GPA 3.98로 우등 졸업.
