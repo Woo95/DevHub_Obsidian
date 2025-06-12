@@ -1,7 +1,6 @@
 # **Hello World!**
 
 ![[Portfolios_Kor/01_Introduction/01_About Me|01_About Me]]
-저의 **개발자 허브**에 오신 것을 환영합니다. 저의 기술과 프로젝트를 기록하는 성장형 아카이브입니다.
 
 ---
 ## **개요**

@@ -1,7 +1,6 @@
 # **Hello World!**
 
 ![[Portfolios_Eng/01_Introduction/01_About Me|01_About Me]]
-Welcome to my **developer hub**, a growing archive of my journey, skills, and projects.
 
 ---
 ## **Overview**
