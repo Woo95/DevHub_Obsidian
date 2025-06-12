@@ -1,3 +1,7 @@
 # **Self-Made Game Framework**
 ---
-Finished the project, but document has to be completed. 
+
+The project has been completed.  
+The documentation is currently being written and will be added soon.
+
+https://github.com/Woo95/SDL2_Game_Framework

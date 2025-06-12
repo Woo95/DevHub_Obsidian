@@ -5,7 +5,7 @@
 ---
 ## **Overview**
 
-Learn more about my **background**, **experience**, and **technical skills** through the pages below:
+Learn more about my **background**, **experience**, and **technical skills** through the pages below.
 - **[[Portfolios_Eng/01_Introduction/02_My Information|My Information]]**
 - **[[Portfolios_Eng/02_Game Projects/_Game Projects|Game Projects]]**
 - **[[Portfolios_Eng/03_Technical Notes/_Technical Notes|Technical Notes]]**

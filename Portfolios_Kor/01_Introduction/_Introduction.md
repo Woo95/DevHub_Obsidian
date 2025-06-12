@@ -5,7 +5,7 @@
 ---
 ## **개요**
 
-아래 페이지들을 통해 저의 **정보**, **프로젝트**, **기술 노트**를 더 자세히 살펴보실 수 있습니다:
+아래 페이지들을 통해 저의 **정보**, **프로젝트**, **기술 노트**를 더 자세히 살펴보실 수 있습니다.
 - **[[Portfolios_Kor/01_Introduction/02_My Information|내 정보]]**
 - **[[Portfolios_Kor/02_Game Projects/_Game Projects|게임 프로젝트]]**
 - **[[Portfolios_Kor/03_Technical Notes/_Technical Notes|기술 노트]]**
