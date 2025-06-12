@@ -1,6 +1,6 @@
 # **Hello World!**
 
-![[01_About Me]]
+![[Portfolios_Kor/01_Introduction/01_About Me|01_About Me]]
 저의 **개발자 허브**에 오신 것을 환영합니다. 저의 기술과 프로젝트를 기록하는 성장형 아카이브입니다.
 
 ---
@@ -8,8 +8,8 @@
 
 아래 페이지들을 통해 저의 **정보**, **프로젝트**, **기술 노트**를 더 자세히 살펴보실 수 있습니다:
 - **[[Portfolios_Kor/01_Introduction/02_My Information|내 정보]]**
-- **[게임 프로젝트]**
-- **[기술 노트]**
+- **[[Portfolios_Kor/02_Game Projects/_Game Projects|게임 프로젝트]]**
+- **[[Portfolios_Kor/03_Technical Notes/_Technical Notes|기술 노트]]**
 
 ---
 ## **더 살펴보고 싶으신가요?**
