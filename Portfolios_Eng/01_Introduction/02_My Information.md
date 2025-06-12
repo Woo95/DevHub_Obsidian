@@ -1,13 +1,10 @@
 # **My Information**
 
-**Name**
-Chaewan Woo
+**Name**<br/>Chaewan Woo
 
-**Year of Birth**
-1995
+**Year of Birth**<br/>1995
 
-**Location**
-Suwon, South Korea
+**Location**<br/>Suwon, South Korea
 
 ---
 ![[Portfolios_Eng/01_Introduction/03_Contact|03_Contact]]
