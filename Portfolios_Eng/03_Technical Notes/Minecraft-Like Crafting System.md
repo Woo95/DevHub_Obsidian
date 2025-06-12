@@ -4,7 +4,7 @@
 ## **Overview**
 This project features a **basic item inventory** and **Minecraft-style crafting system**. Players can manage items and combine them in crafting slots to create new ones. It's built for **easy expansion**, allowing developers to **quickly add new recipes**.
 
-[**View Repository**](https://github.com/Woo95/Unity_Minecraft_Like_Crafting_System)
+[**View Repository**](https://github.com/Woo95/Unity_Minecraft_Like_Crafting_System)<br/>[**Watch Demo**](https://www.youtube.com/watch?v=wVEw_mPlB5I)
 
 ---
 ## **Crafting Showcase**
