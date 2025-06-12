@@ -43,8 +43,8 @@ The camera smoothly follows the player using `Lerp()`, then clamps its position 
 Each background layer moves at a different horizontal speed based on its `m_Percent` value. Layers farther from the camera scroll more slowly, creating depth through parallax scrolling.
 
 ---
-### `4. Player Interaction Mechanics`
-This section outlines **core ways the player interacts** with the environment and game objects, including stomping enemies, taking damage, collecting items, and detecting ground contact. This approach ensures **accurate and modular collision handling**.
+### `4. Player Interaction Zones`
+This section explains how the **player interacts** with the environment and game objects. These interactions include stomping enemies, taking damage, collecting items, and detecting ground contact. The system supports **modular collision handling with a focus on precision**.
 ![[2D Platformer Game (Media)#^060aae]]
 
 - The player object uses **one collider** and **two detection zones**:
