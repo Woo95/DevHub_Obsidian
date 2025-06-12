@@ -5,9 +5,9 @@ This library implements a **fixed-type**, **dynamic-size** memory pool system in
 
 For `allocation`, the project provides two approaches, **manual memory management** and **automatic memory management** using a custom [[SharedPtr Library|SharedPtr]].
 > ⚠️ Note: The [[SharedPtr Library|SharedPtr]] used in the memory pool system is a slightly modified version of the standard one. 
-- [[MemoryPool Library#^97b06c|Manual Memory Management]]:
+- **Manual Memory Management**:
 	- Allows explicit control over a specific memory pool and immediate deallocation, making it possible to optimize performance and manage memory flexibly.  
-- [[MemoryPool Library#^b277e5|Automatic Memory Management]]:
+- **Automatic Memory Management**:
 	- Uses [[SharedPtr Library|SharedPtr]] to safely share memory across different parts of the program, automatically freeing memory when it is no longer in use.
 
 These two methods are designed to be used selectively based on the situation, offering flexibility in memory control as needed.
@@ -36,15 +36,15 @@ These two methods are designed to be used selectively based on the situation, of
 - **Role**:
 	-  A `singleton` class that manages the creation, allocation, and deallocation of all memory pools. This class is designed to create and manage memory pools of various types.
 - **Key Methods**:
-	- [[MemoryPool Library Block References#^1ecaa6|bool CreatePool<T>(int initCapacity)]]:
+	- [[MemoryPool Library Block References#^1ecaa6|bool CreatePool\<T\>(int initCapacity)]]:
 		- Creates a memory pool for `T type`. The initial capacity can be set via `initCapacity`. If a pool for this type already exists, it will not be created.
-	- [[MemoryPool Library Block References#^34624f|bool DeletePool<T>()]]:
+	- [[MemoryPool Library Block References#^34624f|bool DeletePool\<T\>()]]:
 		- Deletes the memory pool of `T type` and frees the associated resources.
-	- [[MemoryPool Library Block References#^8be1c4|T* Allocate<T>()]]:
+	- [[MemoryPool Library Block References#^8be1c4|T* Allocate\<T\>()]]:
 		- Returns an available `T type` pointer from the memory pool of the same type. If no free block exists, the pool will expand.
-	- [[MemoryPool Library Block References#^820f8e|void Deallocate<T>(T* deallocPtr)]]:
+	- [[MemoryPool Library Block References#^820f8e|void Deallocate\<T\>(T* deallocPtr)]]:
 		- The function deallocates the memory and returns the pointer to the pool for reuse. If the pool becomes unused after deallocation, it is deleted
-	- [[MemoryPool Library Block References#^afa457|void DeallocateButKeepPool<T>(T* deallocPtr)]]:
+	- [[MemoryPool Library Block References#^afa457|void DeallocateButKeepPool\<T\>(T* deallocPtr)]]:
 		- The function deallocates the memory and returns the pointer to the pool for reuse.
 
 ---

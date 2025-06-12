@@ -27,7 +27,7 @@ Developed as part of my coursework, this project extends a provided **networking
 	- [[RealTimeMovement Block References#^e4f3d1|PlayerData Remove(int clientConnectionID)]]:
 		- Called on client disconnection. Finds and removes the player from the active session list. Used by `NetworkServerProcessing` to update the game state.
 	- [[RealTimeMovement Block References#^52ae28|PlayerData Search(int playerSeed)]]:
-		  - Returns a reference to a player based on their unique `seed`. Used by the server to apply updates like movement or input synchronization during gameplay.
+		- Returns a reference to a player based on their unique `seed`. Used by the server to apply updates like movement or input synchronization during gameplay.
 
 ---
 ### `2. NetworkServerProcessing Class`
@@ -50,7 +50,7 @@ Handles **incoming messages from clients**, analyzes signifiers, and dispatches 
 
 - **Key Methods**
 	- [[RealTimeMovement Block References#^d888d2|void SpawnMySelf(int mySeed, Vector3 position)]]:
-		  - Instantiates the local player at the given position and assigns a unique `seed`.
+		- Instantiates the local player at the given position and assigns a unique `seed`.
 	- [[RealTimeMovement Block References#^1f211d|void SpawnOthers(int otherSeed, Vector3 position)]]:
 		- Instantiates a remote player for another client and assigns the given `seed`.
 	- [[RealTimeMovement Block References#^3cb25e|void MovePlayer(int movedPlayerSeed, Vector3 targetPos)]]:

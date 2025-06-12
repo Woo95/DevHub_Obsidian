@@ -4,7 +4,7 @@ This section showcases my self-developed technical notes, organized by language 
 
 ---
 
-| **Langauge** | **Name**                           | **Tools** | **Highlight**                                                                            | **Team** | Year |
+| **Langauge** | **Name**                           | **Tools** | **Highlight**                                                                            | **Team** | **Year** |
 | ------------ | ---------------------------------- | --------- | ---------------------------------------------------------------------------------------- | -------- | ---- |
 | C++          | [[D3D12 FlightDemo]]               | DirectX   | Rendering Pipeline (CPU-side), [[Command Queue for Actions]], [[Scene Stack Management]] | Solo     | 2024 |
 | C++          | [[SharedPtr Library]]              | VS        | Smart Pointer, Reference Counting                                                        | Solo     | 2024 |
