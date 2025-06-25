@@ -1,4 +1,4 @@
-# **Game Project Overview**
+# **Game Projects**
 
 This section showcases my game development projects, organized by language and tools.
 

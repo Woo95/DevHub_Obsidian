@@ -14,9 +14,9 @@ Learn more about my **background**, **experience**, and **technical skills** thr
 ## **Want to Explore More?**
 
 Explore my **major work** — Discover my projects, libraries, and ideas.
-- **Projects**
-	- [[Self-Made Game Framework]]
-	- [[Italian Brainrot Survivor]]
+- **Game Projects**
+	- [[Portfolios_Eng/02_Game Projects/Self-Made Game Framework|Self-Made Game Framework]]
+	- [[Portfolios_Eng/02_Game Projects/Italian Brainrot Survivors|Italian Brainrot Survivors]]
 - **Technical Notes**
 	- [[MemoryPool Library]]
 	- [[Minecraft-Like Crafting System]]
