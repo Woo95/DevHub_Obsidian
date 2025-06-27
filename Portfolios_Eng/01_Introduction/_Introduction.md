@@ -18,7 +18,7 @@ Explore my **major work** — Discover my projects, libraries, and ideas.
 	- [[Portfolios_Eng/02_Game Projects/Self-Made Game Framework|Self-Made Game Framework]]
 	- [[Portfolios_Eng/02_Game Projects/Italian Brainrot Survivors|Italian Brainrot Survivors]]
 - **Technical Notes**
-	- [[MemoryPool Library]]
+	- [[Portfolios_Eng/03_Technical Notes/MemoryPool Library|MemoryPool Library]]
 	- [[Minecraft-Like Crafting System]]
 
 ---

@@ -18,7 +18,7 @@
 	- [[Portfolios_Kor/02_Game Projects/Self-Made Game Framework|Self-Made Game Framework]]
 	- [[Portfolios_Kor/02_Game Projects/Italian Brainrot Survivors|Italian Brainrot Survivors]]
 - **기술 문서**
-	- [MemoryPool Library]
+	- [[Portfolios_Kor/03_Technical Notes/MemoryPool Library|메모리 풀 라이브러리]]
 	- [Minecraft-Like Crafting System]
 
 ---
