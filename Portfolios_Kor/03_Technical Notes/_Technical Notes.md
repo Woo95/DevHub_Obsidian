@@ -10,7 +10,6 @@
 | C++    | [[Portfolios_Kor/03_Technical Notes/SharedPtr Library\|SharedPtr 라이브러리]]   | VS      | Smart Pointer, Reference Counting                                                        | 개인     | 2024   |
 | C++    | [[Portfolios_Kor/03_Technical Notes/MemoryPool Library\|메모리 풀 라이브러리]]      | VS      | Memory Control, [[Portfolios_Kor/03_Technical Notes/SharedPtr Library\|SharedPtr 라이브러리]] | 개인     | 2024   |
 | C++    | [Command Queue for Actions]                                                | VS      | Queue                                                                                    | 개인     | 2024   |
-| C++    | [Scene Stack Management]                                                   | VS      | Stack                                                                                    | 개인     | 2024   |
 |        |                                                                            |         |                                                                                          |        |        |
 | C#     | [Object Pooling]                                                           | Unity   | Performance Optimization                                                                 | 개인     | 2023   |
 | C#     | [[Portfolios_Kor/03_Technical Notes/Camera Projection\|Camera Projection]] | Unity   | Orthographic Camera-Relative Object Setup                                                | 개인     | 2023   |
