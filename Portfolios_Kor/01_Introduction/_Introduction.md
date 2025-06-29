@@ -19,7 +19,7 @@
 	- [[Portfolios_Kor/02_Game Projects/Italian Brainrot Survivors|Italian Brainrot Survivors]]
 - **기술 문서**
 	- [[Portfolios_Kor/03_Technical Notes/MemoryPool Library|메모리 풀 라이브러리]]
-	- [Minecraft-Like Crafting System]
+	- [[Portfolios_Kor/03_Technical Notes/Minecraft-Like Crafting System|마인크래프트 스타일 제작 시스템]]
 
 ---
 찾으시는 정보가 없으셨다면, [[Portfolios_Kor/01_Introduction/03_Contact|여기]]를 통해서 문의해주세요.

@@ -1,10 +1,7 @@
 # Minecraft-Like Crafting System Block References
 ---
-# Minecraft-Like Crafting System Project
-## GIF
-![[Minecraft-Like Crafting.gif]] ^737682
+## Eng & Kor
 
-## Code
 ### eItemType Enum
 ```csharp
 public enum eItemType   // XX = empty
@@ -27,7 +24,7 @@ public class ItemInfo : ScriptableObject
 {
 	public Sprite icon;
 	public string description = "";
-    public eItemType itemType;
+	public eItemType itemType;
 }
 ```
 
@@ -88,17 +85,59 @@ public class ItemInstance : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 ^c6f0e7
 
 ### ItemSlot Related Classes
+#### Eng
 ```csharp
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
-// OnPointerClick Event Functions: Handles item interactions (e.g., PickItem, PlaceItem, SwapItem, PickHalfOfItem)
-
-// OnPointerClick Condition Functions: Checks various slot and cursor states (e.g., ItemOnSlotAndCursor, ItemOnSlotAndNoCursor, SlotAndCursorSameItem)
+	/*
+	OnPointerClick Event Functions:
+		- Handles item interactions.
+		- Types:
+			- PickItem
+			- PlaceItem
+			- SwapItem
+			- PickHalfOfItem
+	*/
+	/* 
+	OnPointerClick Condition Functions:
+		- Checks various slot and cursor states.
+		- Types:
+			- ItemOnSlotAndCursor
+			- ItemOnSlotAndNoCursor
+			- SlotAndCursorSameItem
+	*/
 }
 ```
 
 ^db1b81
 
+#### Kor
+```csharp
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
+{
+	/*
+	OnPointerClick 이벤트 함수들:
+		- 아이템 상호작용을 처리하는 함수.
+		- 종류들:
+			- PickItem
+			- PlaceItem
+			- SwapItem
+			- PickHalfOfItem
+	*/
+	/* 
+	OnPointerClick 조건 함수:
+		- 슬롯과 커서 상태를 판별하는 함수.
+		- 종류들:
+			- ItemOnSlotAndCursor
+			- ItemOnSlotAndNoCursor
+			- SlotAndCursorSameItem
+	*/
+}
+```
+
+^6bfaef
+
+#### Eng & Kor
 ```csharp
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -398,8 +437,3 @@ public class RecipeEditor : Editor
 ```
 
 ^f0a932
-
-## Images
-![[RecipeEditor Interface Before.png|250]] ![[RecipeEditor Interface After.png|300]] ^4c0250
-
-![[Crafting Algorithm.png]] ^32d465

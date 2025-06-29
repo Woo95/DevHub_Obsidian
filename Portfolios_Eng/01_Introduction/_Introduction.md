@@ -19,7 +19,7 @@ Explore my **major work** — Discover my projects, libraries, and ideas.
 	- [[Portfolios_Eng/02_Game Projects/Italian Brainrot Survivors|Italian Brainrot Survivors]]
 - **Technical Notes**
 	- [[Portfolios_Eng/03_Technical Notes/MemoryPool Library|MemoryPool Library]]
-	- [[Minecraft-Like Crafting System]]
+	- [[Portfolios_Eng/03_Technical Notes/Minecraft-Like Crafting System|Minecraft-Like Crafting System]]
 
 ---
 Didn't find what you were looking for? Reach out via the contact info in [[Portfolios_Eng/01_Introduction/03_Contact|here]].

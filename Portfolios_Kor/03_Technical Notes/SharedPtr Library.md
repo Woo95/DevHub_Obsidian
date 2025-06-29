@@ -6,7 +6,7 @@
 [**View Repository**](https://github.com/Woo95/SharedPtr)
 
 ---
-## **클래스 정의**
+## **클래스 목록 및 설명**
 ### `CRefCounter 클래스` 
 - **역할**: 
 	- 참조 카운트가 필요한 객체를 위한 기본 클래스입니다.

@@ -15,7 +15,7 @@
 [**View Repository**](https://github.com/Woo95/MemoryPool)
 
 ---
-## **클래스 정의**
+## **클래스 목록 및 설명**
 ### `IMemoryPool 클래스`
 - **역할**:
 	- 모든 메모리 풀의 기본 인터페이스이자 **추상 클래스**입니다. `CMemoryPoolManager`는 `void*`를 통해 `CStaticMemoryPool<T>`를 관리할 수 없으므로, `IMemoryPool`을 사용해 `T 타입`의 메모리 풀을 안전하게 관리합니다.
