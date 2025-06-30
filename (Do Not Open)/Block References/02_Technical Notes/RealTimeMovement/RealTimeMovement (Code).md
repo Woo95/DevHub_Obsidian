@@ -1,9 +1,6 @@
-# RealTimeMovement Block References
+# Code Block References
 ---
-## GIF
-![[RealTimeMovement Multiplayer.gif|500]] ^5a7686
-
-## Code
+## Eng & Kor
 
 ### Server Side
 #### GameLogic.cs
@@ -87,6 +84,7 @@ static public class NetworkServerProcessing
 
 ^d082db
 
+##### Eng
 ```csharp
 static public void ReceivedMessageFromClient(string msg, int clientConnectionID, TransportPipeline pipeline)
 {
@@ -111,7 +109,7 @@ static public void ReceivedMessageFromClient(string msg, int clientConnectionID,
 		break;
 		
 		case ClientToServerSignifiers.PTC_PLAYER_MOVE2:
-			// [Omitted] Input-based version of the above.
+			// [Omitted] Input-based version of the above
 			break;
 	}
 }
@@ -119,6 +117,40 @@ static public void ReceivedMessageFromClient(string msg, int clientConnectionID,
 
 ^e38f3b
 
+##### Kor
+```csharp
+static public void ReceivedMessageFromClient(string msg, int clientConnectionID, TransportPipeline pipeline)
+{
+    string[] csv = msg.Split(',');
+    int signifier = int.Parse(csv[0]);
+    
+    switch (signifier)
+    {
+		case ClientToServerSignifiers.PTC_PLAYER_MOVE:
+		{
+		    string seed = csv[1];
+		    string posX = csv[2], posY = csv[3], posZ = csv[4];
+		
+		    // 서버 측 위치 데이터 업데이트
+		    gameLogic.Search(int.Parse(seed))?.SetData(posX, posY, posZ);
+		
+		    // 업데이트된 위치를 모든 연결된 클라이언트에 전달
+		    string msgOut = $"{ServerToClientSignifiers.PTS_PLAYER_MOVE},{seed},{posX},{posY},{posZ}";
+		    foreach (PlayerData data in gameLogic.m_ConnectedPlayers)
+		        SendMessageToClient(msgOut, data.m_ClientConnectionID, TransportPipeline.ReliableAndInOrder);
+		}
+		break;
+		
+		case ClientToServerSignifiers.PTC_PLAYER_MOVE2:
+			// [생략] 위의 입력 기반 버전
+			break;
+	}
+}
+```
+
+^95f0c7
+
+---
 ### Client Side
 #### GameLogic.cs
 ```csharp
@@ -233,6 +265,7 @@ static public class NetworkClientProcessing
 
 ^ac80a7
 
+##### Eng
 ```csharp
 static public void ReceivedMessageFromServer(string msg, TransportPipeline pipeline)
 {
@@ -264,3 +297,36 @@ static public void ReceivedMessageFromServer(string msg, TransportPipeline pipel
 ```
 
 ^c3ff2f
+
+##### Kor
+```csharp
+static public void ReceivedMessageFromServer(string msg, TransportPipeline pipeline)
+{
+	string[] csv = msg.Split(',');
+	int signifier = int.Parse(csv[0]);
+
+	switch (signifier)
+	{
+		case ServerToClientSignifiers.PTS_CONNECTED_NEW_PLAYER:
+			// [생략] 로컬 플레이어 초기화 및 생성
+			break;
+		case ServerToClientSignifiers.PTS_CONNECTED_NEW_PLAYER_RECEIVE_DATA:
+			// [생략] 서버에서 기존 플레이어 데이터를 받아 생성
+			break;
+		case ServerToClientSignifiers.PTS_CONNECTED_PLAYERS_RECEIVE_NEW_PLAYER_DATA:
+			// [생략] 다른 클라이언트에 새로 접속한 원격 플레이어 생성
+			break;
+		case ServerToClientSignifiers.PTS_PLAYER_MOVE:
+			// [생략] 원격 플레이어 위치 업데이트 (Type A)
+			break;
+		case ServerToClientSignifiers.PTS_PLAYER_MOVE2:
+			// [생략] 원격 플레이어 위치 및 입력 업데이트 (Type B)
+			break;
+		case ServerToClientSignifiers.PTS_PLAYER_LEFT:
+			// [생략] 연결이 끊긴 플레이어를 씬에서 제거
+			break;
+	}
+}
+```
+
+^d87cc9

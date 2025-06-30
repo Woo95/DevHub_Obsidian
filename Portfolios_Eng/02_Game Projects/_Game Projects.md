@@ -11,3 +11,5 @@ This section showcases my game development projects, organized by language and t
 |              |                                                                                                 |           |                                                                        |          |          |
 | C#           | [[Portfolios_Eng/02_Game Projects/Tower Defender - Waves of War\|Tower Defender: Waves of War]] | Unity     | Randomized Spawner, Unit AI (FSM), Mobile Camera Control               | Solo     | 2023     |
 | C#           | [[Portfolios_Eng/02_Game Projects/2D Platformer Game\|2D Platformer Game]]                      | Unity     | FSM Game Flow, Parallax Scrolling Background, Player Interaction Zones | Solo     | 2023     |
+
+---

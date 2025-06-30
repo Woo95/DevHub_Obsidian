@@ -11,3 +11,5 @@
 |        |                                                                                                 |        |                                              |        |        |
 | C#     | [[Portfolios_Kor/02_Game Projects/Tower Defender - Waves of War\|Tower Defender: Waves of War]] | Unity  | 랜덤 생성 시스템, 유닛 인공지능 (FSM), 모바일 카메라 조작         | 개인     | 2023   |
 | C#     | [[Portfolios_Kor/02_Game Projects/2D Platformer Game\|2D Platformer Game]]                      | Unity  | FSM 기반 게임 흐름 구조, 패럴랙스 스크롤링 배경, 플레이어 상호작용 영역들 | 개인     | 2023   |
+
+---
