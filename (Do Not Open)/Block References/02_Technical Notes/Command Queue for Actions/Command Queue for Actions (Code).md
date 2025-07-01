@@ -1,6 +1,6 @@
-# Command Queue for Actions Block References
+# Code Block References
 ---
-## Code
+## Eng & Kor
 
 ### Entity Classes
 ```cpp
@@ -16,7 +16,8 @@ public:
 public:
 	virtual void Update(float deltaTime) {}
 };
-
+```
+```csharp
 class CPlayer : public CObject
 {
 public:
@@ -29,7 +30,11 @@ public:
 		std::cout << "Player Action!\n";
 	}
 };
+```
 
+^bc13cb
+
+```csharp
 class CMonster : public CObject
 {
 public:
@@ -43,6 +48,9 @@ public:
 	}
 };
 ```
+
+^55138a
+
 ### Scene Class
 ```cpp
 #include <vector>
@@ -91,6 +99,8 @@ public:
 	}
 };
 ```
+
+^6c2790
 
 ### Scene Update Function
 ```cpp

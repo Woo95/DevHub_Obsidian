@@ -1,0 +1,44 @@
+# **동작 명령 대기열**
+---
+## **개요**
+**명령 대기열(command Queue)**은 **큐 기반(FIFO) 구조**를 사용해 **매 프레임마다 명령을 수집하고 일관되게 처리**하는 디자인 패턴입니다. 이 방식은 게임 시스템과 오브젝트의 동작을 분리하며, 게임 로직을 큐에 쌓인 명령 중심으로 구성해 **동작을 깔끔하고 유연하게 제어**할 수 있도록 돕습니다. (적용 사례: [[Portfolios_Kor/03_Technical Notes/D3D12 FlightDemo|D3D12 FlightDemo]])
+
+> ⚠️ 참고: 이 패턴은 구조화와 모듈화를 개선하지만, **지연 실행으로 인한 오버헤드**가 발생할 수 있고, 명령이 잘못 전달되거나 예상치 않게 지연되면 **디버깅이 어려워질 수 있습니다**.
+
+[**View Repository**](https://github.com/Woo95/Command-Queue-for-Actions)
+
+---
+## **구조 설계도**
+![[CommandQueue Structure Diagram_Kor.png]]
+- **흰색 테두리**: 처리 흐름
+- **노란색 테두리**: 명령들 집합체
+
+---
+## **클래스 목록 및 설명**
+### `Command 구조체 - 코드 분석`
+![[Command Queue for Actions (Code)#^27cad2]]
+`float deltaTime`을 매개변수로 받는 호출 가능한 `action`(주로 람다나 함수 객체)을 래핑합니다. 이를 통해 명령이 시간 의존적인 로직을 캡슐화하고 처리할 수 있습니다.
+
+---
+### `CommandQueue 클래스 - 코드 분석`
+![[Command Queue for Actions (Code)#^50c1f1]]
+`CCommandQueue`는 `FCommand` 객체를 FIFO 방식으로 관리하고 실행을 처리합니다. 명령 생성과 실행 시점을 분리하여, 게임 로직을 더 깔끔하고 모듈화된 형태로 구성할 수 있습니다.
+
+---
+## **코드 분석**
+### `사용 예제`
+![[Command Queue for Actions (Code)#^8d7160]]
+이 예제는 [[Command Queue for Actions (Code)#^bc13cb|player]], [[Command Queue for Actions (Code)#^55138a|monster]], 그리고 `frame`을 캡처하는 람다를 사용해 각 프레임마다 명령을 생성하는 5프레임 처리 과정을 수행합니다. 생성된 각 명령은 `PushCommand()`를 통해 [[Command Queue for Actions (Code)#^6c2790|scene]]에 추가하고, `Scene::Update()`에서 실행됩니다.
+
+---
+#### `CScene::Update()`
+![[Command Queue for Actions (Code)#^5edefe]]
+이 함수는 `mCommandQueue`에서 대기 중인 모든 명령을 순서대로 제거하며 실행합니다.
+
+---
+## **맺는 말**
+> 명령 대기열은 **로직과 실행을 명확히 분리하여 프레임 기반 시스템을 더욱 모듈화하고 유지 보수성을 높이는 동시에 구조화와 타이밍 제어를 개선, 일괄 처리 최적화 같은 장점**을 가질 수도 있습니다.
+>
+> 반면, **지연 실행으로 인한 오버헤드가 발생하고 명령의 순서 관리나 디버깅이 복잡해질 수 있으며 명령 대기열에 명령을 계속 보관하는 경우 메모리 사용량이 증가할 수도 있는 단점**이 있습니다.
+>
+> 명령 대기열은 이러한 장단점을 고려해, 적용 여부를 신중히 결정해야 합니다.
