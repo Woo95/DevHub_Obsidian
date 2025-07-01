@@ -1,31 +1,28 @@
-# Object Pooling Block References
+# Code Block References
 ---
-# From the Infinite Runners Project
-## GIF
-![[infinite runners object pooling.gif]] ^a71532
+## Eng & Kor
 
----
-## Code
 ### MapGenerator Class - Key Variables
 ```csharp
 public class MapGenerator : MonoBehaviour
 {
-    // map prefabs to instantiate
+	// map prefabs to instantiate
 	public GameObject[] m_MapPrefabs;
 	
-    // total maps in the pool
+	// total maps in the pool
 	public int m_MapPoolSize;
 	
 	// array of maps in the pool
 	private GameObject[] m_MapPool;
 	
 	// list of available pool indices
-    private List<int> m_FreeIndices;
+	private List<int> m_FreeIndices;
     
-    // number of maps to spawn initially
-    public int m_SpawnAmount;
+	// number of maps to spawn initially
+	public int m_SpawnAmount;
 }
 ```
+
 ### MapGenerator Class - Key Functions
 ```csharp
 private void Start()
@@ -135,10 +132,3 @@ private void OnTriggerEnter(Collider other)
 ```
 
 ^612f56
-
----
-# From the Spaceship Battle Project
-## GIF
-![[Spaceship Battle object pooling.gif|400]] ^b6ae16
-
-![[Spaceship Battle Statistics (no pool).gif|250]] ![[Spaceship Battle Statistics (pool).gif|250]]  ^65f1dd
