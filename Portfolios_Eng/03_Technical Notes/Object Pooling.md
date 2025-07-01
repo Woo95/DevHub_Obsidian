@@ -1,7 +1,7 @@
 # **Object Pooling**
 ---
 ## **Overview**
-This technique is a **performance optimization** technique that **reuses created objects** to avoid frequent memory allocation and deallocation. Similar to [[Portfolios_Kor/03_Technical Notes/MemoryPool Library|memory pool]], it focuses on recycling fully initialized object instances. It is ideal for objects that repeatedly appear and disappear.
+This technique is a **performance optimization** technique that **reuses created objects** to avoid frequent memory allocation and deallocation. Similar to [[Portfolios_Eng/03_Technical Notes/MemoryPool Library|memory pool]], it focuses on recycling fully initialized object instances. It is ideal for objects that repeatedly appear and disappear.
 
 > ⚠️ Note: This technique improves performance by **reducing CPU overhead** through reuse, though it **may increase memory usage** due to pre-allocation.
 

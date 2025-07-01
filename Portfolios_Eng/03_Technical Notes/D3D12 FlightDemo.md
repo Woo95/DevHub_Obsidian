@@ -1,7 +1,7 @@
 # **D3D12 FlightDemo**
 ---
 ## **Overview**
-This project is a lightweight **3D flight demo** in C++ using the **DirectX 12 graphics API**. Developed as part of my coursework, it serves as a **learning exercise** focused on the **CPU-side setup of the D3D12 rendering pipeline**. The demo also implements **design patterns** for the game-specific systems such as a **[[Command Queue for Actions|command queue for dispatching actions]]** and **[[Scene Stack Management|scene stack management]]**.
+This project is a lightweight **3D flight demo** in C++ using the **DirectX 12 graphics API**. Developed as part of my coursework, it serves as a **learning exercise** focused on the **CPU-side setup of the D3D12 rendering pipeline**. The demo also implements **design patterns** for the game-specific systems such as a **[[Portfolios_Eng/03_Technical Notes/Command Queue for Actions|command queue for dispatching actions]]** and **scene stack management**.
 ![[D3D12 FlightDemo Block References#^8ce308]]
 [**View Repository**](https://github.com/Woo95/DirectX12_FlightDemo)
 
@@ -67,4 +67,4 @@ Initialization stages 1-5, are all executed once within `Game::Initialize()`:
 
 ---
 ## **Conclusion**
-> This project applies core **DirectX 12 concepts** through a clear, step-by-step pipeline setup. Beyond rendering, it introduces **reusable systems** like **[[Command Queue for Actions|action command queues]]** and **[[Scene Stack Management|scene stack management]]**, reflecting a structured approach to building **scalable 3D applications** in C++. It served as a strong entry point into **low-level graphics programming** and **engine architecture** design.
+> This project applies core **DirectX 12 concepts** through a clear, step-by-step pipeline setup. Beyond rendering, it introduces **reusable systems** like **[[Portfolios_Eng/03_Technical Notes/Command Queue for Actions|action command queues]]** and **scene stack management**, reflecting a structured approach to building **scalable 3D applications** in C++. It served as a strong entry point into **low-level graphics programming** and **engine architecture** design.
