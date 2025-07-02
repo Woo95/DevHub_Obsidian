@@ -110,7 +110,7 @@ public void TrackBackGround()
 
 ^6de630
 
-### `Player Interaction Mechanics`
+### Player Interaction Mechanics
 ```csharp
 bool IsGrounded()
 {

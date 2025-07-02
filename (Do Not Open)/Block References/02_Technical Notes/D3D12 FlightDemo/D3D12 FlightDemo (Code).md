@@ -1,12 +1,9 @@
-# D3D12 FlightDemo Block References
+# Code Block References
 ---
-## GIF
-![[D3D12 FlightDemo.gif|500]] ^8ce308
-
-## Words
+## Definitions (Eng)
 ```
 Constant Buffer View (CBV):
-	A GPU-accessible view that allows shaders to read constant (uniform) data such as transformation matrices, lighting parameters, or camera position.
+	A GPU-accessible view that allows shaders to read constant uniform data such as transformation matrices, lighting parameters, or camera position.
 ```
 
 ^1ee3b0
@@ -21,7 +18,6 @@ Shader Resource View (SRV):
 ```
 Unordered Access View (UAV):
 	A descriptor that allows shaders to read from and write to a resource (such as a texture or buffer) in arbitrary order, without the restrictions of constant or shader resource views.
-
 ```
 
 ^2dd457
@@ -68,7 +64,74 @@ Command Allocator:
 
 ^c80301
 
+---
+## Definitions (Kor)
+```
+상수 버퍼 뷰(Constant Buffer View):
+	쉐이더가 변환 행렬, 조명 파라미터, 카메라 위치 같은 상수 uniform 데이터를 읽을 수 있도록 GPU가 접근할 수 있게 해주는 뷰.
+```
+
+^12909b
+
+```
+셰이더 리소스 뷰(Shader Resource View):
+	쉐이더가 렌더링 중에 텍스처나 구조화된 버퍼 같은 다양한 GPU 리소스에 접근할 수 있게 해주는 설명자(descriptor). 
+```
+
+^4b061d
+
+```
+무순서 접근 뷰(Unordered Access View):
+	쉐이더나 리소스(텍스처나 버퍼 등)를 임의의 순서로 읽고 쓸 수 있게 하는 설명자(descriptor). CBV나 SRV처럼 제약이 없고, 읽기/쓰기가 가능.
+```
+
+^3651ae
+
+```
+샘플러(Sampler): 
+	텍스처를 샘플링할 때 사용하는 필터링 방식이나 주소 모드(랩, 클램프 등)를 정의하는 설명자(descriptor).
+```
+
+^be5c68
+
+```
+고급 셰이더 언어(High-Level Shader Language):
+	Microsoft에서 개발한 쉐이더 프로그래밍 언어로, Direct3D 렌더링 파이프라인에서 GPU 프로그램을 작성할 때 사용.
+```
+
+^58ccc4
+
+```
+정점 셰이더(Vertex Shader):
+	그래픽스 파이프라인에서 정점 데이터를 (위치, 법선 등) 모델 공간에서 클립 공간으로 변환하는 프로그래밍이 가능한 단계.
+```
+
+^cfc0fb
+
+```
+픽셀 셰이더(Pixel Shader):
+	각 픽셀의 최종 색상을 결정하는 프로그래밍이 가능한 단계. 주로 텍스처 데이터나 조명 계산을 할때 사용.
+```
+
+^c1153e
+
+```
+상수 버퍼(Constant Buffer):
+	행렬이나 조명 같은 프레임 단위의 동적 데이터를 저장하는 버퍼. CBV를 통해 접근.
+```
+
+^fe87af
+
+```
+명령 할당자(Command Allocator):
+	한 프레임 동안 GPU 명령을 기록할 때 필요한 메모리를 관리하는 객체.
+```
+
+^ebaf60
+
+---
 ## Code
+### Setup (Eng)
 ```cpp
 bool Game::Initialize()
 {
@@ -92,14 +155,48 @@ bool Game::Initialize()
 	// 5. Frame Resources Setup
 	BuildFrameResources();
     
-    // Other code omitted for clarity
+    /* Other code omitted for clarity */
+    
     return true;
 }
 ```
 
 ^db2b1a
 
-### Stage 1
+### Setup (Kor)
+```cpp
+bool Game::Initialize()
+{
+    // 1. 디바이스 초기화
+    if (!D3DApp::Initialize()) 
+	    return false;   
+        
+	// 2. 그래픽스 파이프라인 설정
+	BuildRootSignature();
+	BuildShadersAndInputLayout();
+	BuildPSOs();
+
+	// 3. 리소스 에셋 설정
+	LoadTextures();
+	BuildMaterials();
+	BuildDescriptorHeaps();
+
+	// 4. 기하 정보 및 정점 버퍼 설정
+	BuildShapeGeometry();
+
+	// 5. 프레임 리소스 설정
+	BuildFrameResources();
+    
+    /* 코드 간결성을 위해 생략된 부분이 있습니다. */
+    
+    return true;
+}
+```
+
+^f262f3
+
+---
+### Stage 1 (Eng)
 ```cpp
 bool D3DApp::Initialize()
 {
@@ -123,7 +220,7 @@ bool D3DApp::Initialize()
 ```cpp
 bool D3DApp::InitDirect3D()
 {
-	// Other initialization omitted
+	/* Other initialization omitted */
 
 	// Create command queue, allocator, and command list for GPU commands
 	CreateCommandObjects();
@@ -140,6 +237,46 @@ bool D3DApp::InitDirect3D()
 
 ^771272
 
+### Stage 1 (Kor)
+```cpp
+bool D3DApp::Initialize()
+{
+	// 메인 윈도우 생성 및 초기화
+	if(!InitMainWindow())
+		return false;
+
+	// Direct3D 디바이스 및 관련 리소스 초기화
+	if(!InitDirect3D())
+		return false;
+
+    // 윈도우 크기에 맞춰 스왑 체인, 뷰포트, 깊이 버퍼 설정
+    OnResize();
+
+	return true;
+}
+```
+
+```cpp
+bool D3DApp::InitDirect3D()
+{
+	/* 다른 초기화 코드 생략 */
+
+	// GPU 명령을 위한 명령 대기열(commandQueue), 할당자, 명령 목록(commandList) 생성
+	CreateCommandObjects();
+
+	// 렌더링된 프레임을 화면에 출력하기 위한 스왑 체인 생성
+	CreateSwapChain();
+
+	// 화면 출력용(렌더 대상)과 깊이 정보용 설명자 힙(메모리 영역) 생성
+	CreateRtvAndDsvDescriptorHeaps();
+
+	return true;
+}
+```
+
+^8591c4
+
+---
 ### Stage 2
 ```cpp
 void Game::BuildRootSignature()
