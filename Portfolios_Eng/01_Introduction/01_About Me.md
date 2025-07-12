@@ -1,4 +1,4 @@
-# **Who am I?**
+# **[[Portfolios_Eng/01_Introduction/02_My Information|Who am I?]]**
 ---
 Hi! I'm **Chaewan Woo**, a passionate game developer from **S.Korea** who studied in **Canada**. I initially majored in **Computer Science, Mathematics, and Statistics**, but switched to **Game Programming** in my fourth year after discovering my love for games.
 
