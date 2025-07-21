@@ -1,7 +1,7 @@
 # **Command Queue for Actions**
 ---
 ## **Overview**
-A **Command Queue** is a design pattern that uses a **queue-based structure** (FIFO) to **collect commands each frame** and **process them consistently**, separating game systems from object behavior. It organizes game logic around queued commands and **helps control actions in a clean and flexible way**. (e.g., used in [[Portfolios_Eng/03_Technical Notes/D3D12 FlightDemo|D3D12 FlightDemo]])
+A **Command Queue** is a design pattern that uses a **queue-based structure** (FIFO) to **collect commands each frame** and **process them consistently**, separating game systems from object behavior. It organizes game logic around queued commands and **helps control actions in a clean and flexible way**. (e.g., used in [[D3D12 FlightDemo]])
 
 > ⚠️ Note: This pattern improves structure and modularity, but may introduce **overhead due to deferred execution**, and can be harder to debug if commands are misrouted or delayed unexpectedly.
 

@@ -1,4 +1,4 @@
-# **RealTimeMovement**
+# **RealTimeMovement Network**
 ---
 ## **Overview**
 Developed as part of my coursework, this project extends a provided **networking framework** with custom implementations of **client-server movement synchronization**, **input handling**, and **command send-receive systems** on both the server and client sides. The focus was on building a responsive, modular architecture suitable for **real-time multiplayer interaction**.

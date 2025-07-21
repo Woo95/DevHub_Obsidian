@@ -1,7 +1,7 @@
 # **D3D12 FlightDemo**
 ---
 ## **Overview**
-This project is a lightweight **3D flight demo** in C++ using the **DirectX 12 graphics API**. Developed as a **learning exercise**, it focuses on the **CPU-side setup of the D3D12 rendering pipeline**. The demo also implements **design patterns** for the game-specific systems such as a **[[Portfolios_Eng/03_Technical Notes/Command Queue for Actions|command queue for actions]]** and **scene stack management**.
+This project is a lightweight **3D flight demo** in C++ using the **DirectX 12 graphics API**. Developed as a **learning exercise**, it focuses on the **CPU-side setup of the D3D12 rendering pipeline**. The demo also implements **design patterns** for the game-specific systems such as a **[[Command Queue for Actions|command queue for actions]]** and **scene stack management**.
 ![[D3D12 FlightDemo (Media)#^8ce308]]
 [**View Repository**](https://github.com/Woo95/DirectX12_FlightDemo)
 
@@ -67,4 +67,4 @@ Initialization stages 1-5, are all executed once within `Game::Initialize()`:
 
 ---
 ## **Conclusion**
-> This project applies core **DirectX 12 concepts** through a clear, step-by-step pipeline setup. Beyond rendering, it applies systems like **[[Portfolios_Eng/03_Technical Notes/Command Queue for Actions|command queue for actions]]** and **scene stack management**, enabling the systematic development and implementation of **scalable 3D applications** in C++. It served as a strong entry point into **low-level graphics programming** and **engine architecture** design.
+> This project applies core **DirectX 12 concepts** through a clear, step-by-step pipeline setup. Beyond rendering, it applies systems like **[[Command Queue for Actions|command queue for actions]]** and **scene stack management**, enabling the systematic development and implementation of **scalable 3D applications** in C++. It served as a strong entry point into **low-level graphics programming** and **engine architecture** design.

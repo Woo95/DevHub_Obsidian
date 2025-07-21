@@ -3,12 +3,12 @@
 ## **Overview**
 This library implements a **fixed-type**, **dynamic-size** memory pool system in C++. It enhances performance by optimizing memory allocation and deallocation through memory reuse, enabling efficient memory management. All memory pool's `creation`, `allocation`, and `deallocation` are handled exclusively through the `CMemoryPoolManager`.
 
-For `allocation`, the project provides two approaches, **manual memory management** and **automatic memory management** using a custom [[Portfolios_Eng/03_Technical Notes/SharedPtr Library|CSharedPtr]].
-> ⚠️ Note: The [[Portfolios_Eng/03_Technical Notes/SharedPtr Library|CSharedPtr]] used in the memory pool system is a slightly modified version of the standard one. 
+For `allocation`, the project provides two approaches, **manual memory management** and **automatic memory management** using a custom [[SharedPtr Library|CSharedPtr]].
+> ⚠️ Note: The [[SharedPtr Library|CSharedPtr]] used in the memory pool system is a slightly modified version of the standard one. 
 - **Manual Memory Management**:
 	- Allows explicit control over a specific memory pool and immediate deallocation, making it possible to optimize performance and manage memory flexibly.  
 - **Automatic Memory Management**:
-	- Uses [[Portfolios_Eng/03_Technical Notes/SharedPtr Library|CSharedPtr]] to safely share memory across different parts of the program, automatically freeing memory when it is no longer in use.
+	- Uses [[SharedPtr Library|CSharedPtr]] to safely share memory across different parts of the program, automatically freeing memory when it is no longer in use.
 
 These two methods are designed to be used selectively based on the situation, offering flexibility in memory control as needed.
 
@@ -58,4 +58,4 @@ Example demonstrating **manual memory management** using the CMemoryPoolManager 
 ### `Usage Example #2 - (Automatic memory management)` 
 
 ![[MemoryPool Library (Code)#^d2dde6]]
-Example demonstrating **automatic memory management** using [[Portfolios_Eng/03_Technical Notes/SharedPtr Library|CSharedPtr]] with reference counting for the Player-type memory pool.
+Example demonstrating **automatic memory management** using [[SharedPtr Library|CSharedPtr]] with reference counting for the Player-type memory pool.
