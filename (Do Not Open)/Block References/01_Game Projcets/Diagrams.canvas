@@ -1,7 +1,7 @@
 {
 	"nodes":[
 		{"id":"4997c3c0779d8129","type":"group","x":-4680,"y":280,"width":3660,"height":3160,"label":"게임 프레임워크 실행 흐름 설계도"},
-		{"id":"abc1bfea6e953c68","type":"group","x":-3171,"y":1400,"width":1371,"height":734},
+		{"id":"abc1bfea6e953c68","type":"group","x":-3171,"y":1400,"width":1371,"height":719},
 		{"id":"e27eeb4e2271e5b1","type":"group","x":-4600,"y":520,"width":640,"height":1000,"label":"Initialization"},
 		{"id":"0800c12ba2d780e5","type":"group","x":-3827,"y":1299,"width":580,"height":861,"label":"CSceneManager::Update()"},
 		{"id":"71a8764f0cbfa9b9","type":"group","x":-4578,"y":680,"width":598,"height":810},
@@ -11,10 +11,10 @@
 		{"id":"11d273fb39d857c1","type":"group","x":-3171,"y":2160,"width":1033,"height":299},
 		{"id":"297f15f7ed8e3ebf","type":"group","x":-3827,"y":2375,"width":580,"height":520,"label":"CSceneManager::LateUpdate()"},
 		{"id":"f28024117bc99c01","type":"group","x":-4578,"y":1740,"width":599,"height":390},
-		{"id":"b651dbf294d8690a","type":"group","x":-3060,"y":1640,"width":1240,"height":180,"label":"CSceneCollision"},
 		{"id":"77dbf62c05a82a35","type":"group","x":-4599,"y":2635,"width":641,"height":295,"label":"Render"},
 		{"id":"9d4ccb04bd6a859c","type":"group","x":-4599,"y":2253,"width":639,"height":295,"label":"LateUpdate"},
 		{"id":"2ce7a18eb180d1b1","type":"group","x":-3807,"y":2535,"width":527,"height":334},
+		{"id":"b651dbf294d8690a","type":"group","x":-3060,"y":1659,"width":1240,"height":140,"label":"CSceneCollision"},
 		{"id":"bce1776e28aae2f4","type":"group","x":-2552,"y":1459,"width":732,"height":154,"label":"CPhysicsManager"},
 		{"id":"be1aa64e4510624a","type":"text","text":"**게임 매니저 초기화**\n```cpp\nbool CGameManager::Init();\n```","x":-4579,"y":540,"width":599,"height":110},
 		{"id":"bca5cbf5cfdd4544","type":"text","text":"**플랫폼 초기화 및 창/렌더러 생성**\n```cpp\nSDL_Init(SDL_INIT_EVERYTHING);\nmWindow   = SDL_CreateWindow(...);\nmRenderer = SDL_CreateRenderer(mWindow);\n```","x":-4557,"y":700,"width":562,"height":160},
@@ -46,10 +46,10 @@
 		{"id":"1d6b68d994471731","type":"text","text":"**실시간 위젯 입력을 처리한 뒤, 등록된 위젯을 업데이트**\n```cpp\nvoid CSceneUI::Update(float deltaTime)\n{\n\tUpdateInput();\n\n\tfor (CWidget* widget : mWidgets)\n\t\twidget->Update(deltaTime);\n}\n```","x":-3138,"y":2180,"width":437,"height":260},
 		{"id":"c9152bd30188c1ea","type":"text","text":"**모든 자식 위젯 업데이트**\n```cpp\nvoid CWidget::Update(float deltaTime)\n{\n\tfor (CWidget* child : mChilds)\n\t\tchild->Update(deltaTime);\n}\n```","x":-2649,"y":2180,"width":484,"height":260},
 		{"id":"1b3a67662828e252","type":"text","text":"**충돌쌍 상태 업데이트(Enter/Stay/Exit), 겹침 시 겹침 보정 호출**\n```cpp\nvoid CSceneCollision::HandleCollision(CCollider* col1, CCollider* col2);\n```","x":-2536,"y":1676,"width":700,"height":107},
-		{"id":"578304c77121ab70","type":"text","text":"**모든 충돌체를 최상위 노드에 등록 후 해당 노드를 업데이트 (허용된 개수 초과 시 자동 4분할)**\n```cpp\nvoid CQuadTree::Update(float deltaTime)\n{\n\tfor (CCollider* collider : mColliders)\n\t\tmRootNode->AddCollider(collider);\n\n\tmRootNode->Update(deltaTime);\n}\n```","x":-3140,"y":1846,"width":677,"height":260},
-		{"id":"fca702d897198006","type":"text","text":"**쿼드트리(충돌용 공간 분할) 업데이트**\n```cpp\nvoid CSceneCollision::Update(float deltaTime);\n```","x":-3039,"y":1659,"width":475,"height":140},
 		{"id":"0dfe7445d33e4dab","type":"text","text":"**동적 리지드바디가 있을 시, 물리 연산으로 겹침 해소**\n```cpp\nvoid CPhysicsManager::ResolveOverlap(CCollider* col1, CCollider* col2);\n```","x":-2534,"y":1479,"width":696,"height":112},
-		{"id":"70226ee1cb430e64","type":"text","text":"**하위 노드 있으면 하위 노드 업데이트, 없으면 충돌 검사**\n```cpp\nvoid CQTNode::Update(float deltaTime);\n```","x":-2402,"y":1906,"width":433,"height":140}
+		{"id":"fca702d897198006","type":"text","text":"**쿼드트리(충돌용 공간 분할) 업데이트**\n```cpp\nvoid CSceneCollision::Update(float deltaTime);\n```","x":-3039,"y":1676,"width":475,"height":107},
+		{"id":"578304c77121ab70","type":"text","text":"**모든 충돌체를 최상위 노드에 등록 후 해당 노드를 업데이트 (허용된 개수 초과 시 자동 4분할)**\n```cpp\nvoid CQuadTree::Update(float deltaTime)\n{\n\tfor (CCollider* collider : mColliders)\n\t\tmRootNode->AddCollider(collider);\n\n\tmRootNode->Update(deltaTime);\n}\n```","x":-3140,"y":1829,"width":677,"height":260},
+		{"id":"70226ee1cb430e64","type":"text","text":"**하위 노드 있으면 하위 노드 업데이트, 없으면 충돌 검사**\n```cpp\nvoid CQTNode::Update(float deltaTime);\n```","x":-2402,"y":1889,"width":433,"height":140}
 	],
 	"edges":[
 		{"id":"99086a8fe52878bf","fromNode":"e27eeb4e2271e5b1","fromSide":"bottom","toNode":"b8a4a1dc1175cfb7","toSide":"top"},
