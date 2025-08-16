@@ -68,14 +68,12 @@ void CSceneManager::Update(float deltaTime)
 {
 	if (mPending.transition != ETransition::NONE)
 		ChangeApply();
-
+		
 	mScenes.back()->Update(deltaTime);
 }
 ```
 
 ^017baa
-
-#### Kor
 
 ```cpp
 void CSceneManager::ChangeApply()
@@ -100,8 +98,7 @@ void CSceneManager::ChangeApply()
 	default:
 		break;
 	}
-
-	// 새로운 씬 플래그 초기화
+	
 	mPending.transition   = ETransition::NONE;
 	mPending.pendingState = ESceneState::NONE;
 }
@@ -112,11 +109,9 @@ void CSceneManager::ChangeApply()
 ```cpp
 void CSceneManager::PushScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -128,8 +123,7 @@ void CSceneManager::PushScene()
 void CSceneManager::PopScene()
 {
 	assert(!mScenes.empty());
-
-	// 이전 씬 제거 및 리소스들 언로드
+	
 	CScene* oldScene = mScenes.back();
 	if (oldScene->Exit())
 	{
@@ -145,14 +139,11 @@ void CSceneManager::PopScene()
 ```cpp
 void CSceneManager::SwapScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
-
-	// 이전 씬 정리
+	
 	PopScene();
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -163,7 +154,6 @@ void CSceneManager::SwapScene()
 ```cpp
 void CSceneManager::ClearScenes()
 {
-	// 이전 모든 씬 정리
 	while (!mScenes.empty())
 		PopScene();
 }
@@ -174,14 +164,11 @@ void CSceneManager::ClearScenes()
 ```cpp
 void CSceneManager::ClearThenPushScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
-
-	// 이전 모든 씬 정리
+	
 	ClearScenes();
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -192,11 +179,9 @@ void CSceneManager::ClearThenPushScene()
 ```cpp
 void CSceneManager::SwapScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
 	
-	// 이전 씬 제거 및 리소스들 언로드
 	CScene* oldScene = mScenes.back();
 	if (oldScene->Exit())
 	{
@@ -204,8 +189,7 @@ void CSceneManager::SwapScene()
 		SAFE_DELETE(oldScene);
 		mScenes.pop_back();
 	}
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -213,7 +197,6 @@ void CSceneManager::SwapScene()
 
 ^71791d
 
-#### Eng & Kor
 ```cpp
 class CScene abstract
 {
@@ -337,13 +320,13 @@ void CScene::Update(float deltaTime)
 {
     for (CLayer* layer : mLayers)
         layer->Update(deltaTime);
-
+        
     if (mSceneCollision)
         mSceneCollision->Update(deltaTime);
-
+        
     if (mCamera)
         mCamera->Update(deltaTime);
-
+        
     if (mSceneUI)
         mSceneUI->Update(deltaTime);
 }
@@ -356,7 +339,7 @@ void CScene::LateUpdate(float deltaTime)
 {
     for (CLayer* layer : mLayers)
         layer->LateUpdate(deltaTime);
-
+        
     if (mSceneCollision)
 	    mSceneCollision->LateUpdate(deltaTime);
 	    
@@ -386,12 +369,12 @@ T* InstantiateObject(const std::string& name, ELayer::Type type)
 {
 	if (!CMemoryPoolManager::GetInst()->HasPool<T>())
 		CMemoryPoolManager::GetInst()->CreatePool<T>(initialCapacity);
-
+		
 	T* obj = CMemoryPoolManager::GetInst()->Allocate<T>();
 	obj->SetName(name);
 	obj->mScene = this;
 	obj->mLayer = mLayers[type];
-
+	
 	if (!obj->Init())
 	{
 		CMemoryPoolManager::GetInst()->Deallocate<T>(obj);
@@ -416,19 +399,19 @@ class CLayer
 public:
 	CLayer();
 	~CLayer();
-
+	
 private:
     std::vector<class CObject*> mObjects;
 	ESort::Type mSort = ESort::Y;
-
+	
 protected:
 	void Update(float deltaTime);
 	void LateUpdate(float deltaTime);
 	void Render(SDL_Renderer* renderer);
-
+	
 public:
 	void AddObject(CObject* obj) { mObjects.emplace_back(obj); }
-
+	
 private:
 	static bool SortY(CObject* objA, CObject* objB);
 };
@@ -456,7 +439,7 @@ void CLayer::Update(float deltaTime)
         if (!obj->GetActive())
         {
             obj->Destroy();
-
+            
             continue;
         }
         else if (!obj->GetEnable())
@@ -502,7 +485,7 @@ void CLayer::Render(SDL_Renderer* renderer)
 {
     if (mSort == ESort::Type::Y)
 	    std::sort(mObjects.begin(), mObjects.end(), SortY);
-
+	    
     for (CObject* obj : mObjects)
     {
         if (!obj->GetActive() || !obj->GetEnable())
@@ -524,7 +507,7 @@ class CObject abstract : public CEntityBase
 {
 	friend class CScene;
 	friend class CLayer;
-
+	
 protected:
 	CObject();
 	virtual ~CObject();
@@ -629,10 +612,10 @@ T* AllocateComponent(const std::string& name)
 {
 	if (!CMemoryPoolManager::GetInst()->HasPool<T>())
 		CMemoryPoolManager::GetInst()->CreatePool<T>(initialCapacity);
-
+		
 	T* component = CMemoryPoolManager::GetInst()->Allocate<T>();
 	component->SetName(name);
-
+	
 	return component;
 }
 ```
@@ -799,37 +782,37 @@ class CAnimation
     friend class CAnimationManager;
     friend class CSpriteComponent;
     friend class CVFXComponent;
-
+    
 public:
     CAnimation();
     ~CAnimation();
-
+    
 protected:
     std::unordered_map<EAnimationState, std::shared_ptr<FAnimationData>> mAnimationStates;
     EAnimationState mCurrentState;
-
+    
     // for EAnimationType::MOVE
     CTransform* mTransform;
     FVector2D mPrevPos;
-
+    
     // for EAnimationType::MOVE & EAnimationType::TIME
     float mFrameInterval;
     int   mCurrIdx;
     bool  mLooped;
-
+    
 private:
     void Update(float deltaTime);
     void Release();
-
+    
     CAnimation* Clone() const;
-
+    
 public:
     const SDL_Rect& GetFrame();
     bool GetLooped() const;
     void ResetLoop();
-
+    
     void SetState(EAnimationState state);
-
+    
 private:
     void AddState(EAnimationState state, std::shared_ptr<FAnimationData> data);
 };
@@ -841,11 +824,11 @@ private:
 enum class EAnimationState : unsigned char
 {
 	NONE,
-
+	
 	IDLE,
 	WALK,
 	JUMP,
-
+	
 	VFX
 };
 ```
@@ -856,10 +839,10 @@ enum class EAnimationState : unsigned char
 struct FAnimationData
 {
 	EAnimationType type = EAnimationType::NONE;
-
+	
 	bool  isLoop = 0;
 	float intervalPerFrame = 0;
-
+	
 	std::vector<SDL_Rect> frames;
 };
 ```
@@ -870,36 +853,36 @@ struct FAnimationData
 void CAnimation::Update(float deltaTime)
 {
 	FAnimationData* aniData = mAnimationStates[mCurrentState].get();
-
+	
 	switch (aniData->type)
 	{
 		case EAnimationType::NONE:
 			break;
-
+			
 		case EAnimationType::MOVE:
 		{
 			const FVector2D& currentPos = mTransform->GetWorldPos();
-
+			
 			FVector2D posDelta = currentPos - mPrevPos;
-
+			
 			mFrameInterval += posDelta.Length();
-
+			
 			float frameTransitionDistance = aniData->intervalPerFrame / aniData->frames.size();
-
+			
 			if (mFrameInterval >= frameTransitionDistance)
 			{
 				mCurrIdx = (mCurrIdx + 1) % aniData->frames.size();
-
+				
 				mFrameInterval -= frameTransitionDistance;
 			}
 			mPrevPos = currentPos;
 		}
 		break;
-
+		
 		case EAnimationType::TIME:
 		{
 			mFrameInterval += deltaTime;
-
+			
 			if (mFrameInterval >= aniData->intervalPerFrame)
 			{
 				if (aniData->isLoop)
@@ -941,7 +924,7 @@ CAnimation* CAnimation::Clone() const
 {
 	CAnimation* clone = CMemoryPoolManager::GetInst()->Allocate<CAnimation>();
 	*clone = *this;
-
+	
 	return clone;
 }
 ```
@@ -957,33 +940,33 @@ class CSpriteComponent : public CComponent
 public:
 	CSpriteComponent();
 	virtual ~CSpriteComponent();
-
+	
 private:
 	std::shared_ptr<CTexture> mTexture;
 	CAnimation* mAnimation;
 	SDL_Rect mFrame;
-
+	
 	SDL_RendererFlip mFlip;
-
+	
 private:
 	virtual void Update(float deltaTime)        final;
 	virtual void Render(SDL_Renderer* renderer) final;
 	virtual void Release()                      final;
-
+	
 public:
 	std::shared_ptr<CTexture> GetTexture() const { return mTexture; }
 	CAnimation* GetAnimation() const { return mAnimation; }
-
+	
 	void SetTexture(const std::string& key);
 	void SetAnimation(const std::string& key);
 	void SetFrame(const std::string& key);
-
+	
 	void SetFlip(SDL_RendererFlip flip) { mFlip = flip; }
 
 private:
 	const SDL_Rect& GetFrame() const;
 	SDL_Rect GetDest() const;
-
+	
 	bool IsVisibleToCamera() const;
 	SDL_Rect GetCameraSpaceRect() const;
 };
@@ -995,7 +978,7 @@ private:
 void CSpriteComponent::Update(float deltaTime)
 {
 	CComponent::Update(deltaTime);
-
+	
 	if (mAnimation)
 		mAnimation->Update(deltaTime);
 }
@@ -1010,7 +993,7 @@ void CSpriteComponent::Render(SDL_Renderer* renderer)
 	{
 		const SDL_Rect& frame = GetFrame();
 		const SDL_Rect  dest  = GetCameraSpaceRect();
-
+		
 		SDL_RenderCopyEx(renderer, mTexture->GetTexture(), &frame, &dest, 0.0, nullptr, mFlip);
 	}
 	CComponent::Render(renderer);
@@ -1032,7 +1015,7 @@ void CSpriteComponent::SetTexture(const std::string& key)
 void CSpriteComponent::SetAnimation(const std::string& key)
 {
 	CAnimation* base = CAssetManager::GetInst()->GetAnimationManager()->GetAnimation(key);
-
+	
 	if (base)
 	{
 		mAnimation = base->Clone();
@@ -1047,7 +1030,7 @@ void CSpriteComponent::SetAnimation(const std::string& key)
 void CSpriteComponent::SetFrame(const std::string& key)
 {
 	const SDL_Rect* const framePtr = CAssetManager::GetInst()->GetSpriteManager()->GetSpriteFrame(key);
-
+	
 	mFrame = *framePtr;
 }
 ```
@@ -1063,30 +1046,30 @@ class CVFXComponent : public CComponent
 public:
 	CVFXComponent();
 	virtual ~CVFXComponent();
-
+	
 private:
 	std::shared_ptr<CTexture> mTexture;
 	CAnimation* mAnimation;
-
+	
 	bool mPlayVFX;
-
+	
 private:
 	virtual void Update(float deltaTime)        final;
 	virtual void Render(SDL_Renderer* renderer) final;
 	virtual void Release()                      final;
-
+	
 public:
 	std::shared_ptr<CTexture> GetTexture() const { return mTexture; }
 	CAnimation* GetAnimation() const { return mAnimation; }
-
+	
 	void SetTexture(const std::string& key);
 	void SetAnimation(const std::string& key);
-
+	
 	void PlayVFX(const FVector2D& pos);
-
+	
 private:
 	SDL_Rect GetDest() const;
-
+	
 	bool IsVisibleToCamera() const;
 	SDL_Rect GetCameraSpaceRect() const;
 };
@@ -1098,12 +1081,12 @@ private:
 void CVFXComponent::Update(float deltaTime)
 {
 	CComponent::Update(deltaTime);
-
+	
 	if (!mPlayVFX || !mAnimation)
 		return;
-
+		
 	mAnimation->Update(deltaTime);
-
+	
 	if (mAnimation->GetLooped())
 	{
 		mPlayVFX = false;
@@ -1121,7 +1104,7 @@ void CVFXComponent::Render(SDL_Renderer* renderer)
 	{
 		const SDL_Rect& frame = mAnimation->GetFrame();
 		const SDL_Rect  dest  = GetCameraSpaceRect();
-
+		
 		SDL_RenderCopy(renderer, mTexture->GetTexture(), &frame, &dest);
 	}
 	CComponent::Render(renderer);
@@ -1143,7 +1126,7 @@ void CVFXComponent::SetTexture(const std::string& key)
 void CVFXComponent::SetAnimation(const std::string& key)
 {
 	CAnimation* base = CAssetManager::GetInst()->GetAnimationManager()->GetAnimation(key);
-
+	
 	if (base)
 	{
 		mAnimation = base->Clone();
@@ -1159,9 +1142,9 @@ void CVFXComponent::PlayVFX(const FVector2D& pos)
 {
 	if (mPlayVFX || !mAnimation)
 		return;
-
+		
 	mPlayVFX = true;
-
+	
 	mTransform->SetWorldPos(pos);
 	mAnimation->mCurrIdx = 0;
 	mAnimation->mFrameInterval = 0.0f;
