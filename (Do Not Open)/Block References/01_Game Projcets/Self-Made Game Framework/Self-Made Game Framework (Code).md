@@ -789,3 +789,383 @@ void CComponent::Render(SDL_Renderer* renderer)
 ```
 
 ^7c581f
+
+---
+
+### CAnimation
+```cpp
+class CAnimation
+{
+    friend class CAnimationManager;
+    friend class CSpriteComponent;
+    friend class CVFXComponent;
+
+public:
+    CAnimation();
+    ~CAnimation();
+
+protected:
+    std::unordered_map<EAnimationState, std::shared_ptr<FAnimationData>> mAnimationStates;
+    EAnimationState mCurrentState;
+
+    // for EAnimationType::MOVE
+    CTransform* mTransform;
+    FVector2D mPrevPos;
+
+    // for EAnimationType::MOVE & EAnimationType::TIME
+    float mFrameInterval;
+    int   mCurrIdx;
+    bool  mLooped;
+
+private:
+    void Update(float deltaTime);
+    void Release();
+
+    CAnimation* Clone() const;
+
+public:
+    const SDL_Rect& GetFrame();
+    bool GetLooped() const;
+    void ResetLoop();
+
+    void SetState(EAnimationState state);
+
+private:
+    void AddState(EAnimationState state, std::shared_ptr<FAnimationData> data);
+};
+```
+
+^d17f0e
+
+```cpp
+enum class EAnimationState : unsigned char
+{
+	NONE,
+
+	IDLE,
+	WALK,
+	JUMP,
+
+	VFX
+};
+```
+
+^3718fb
+
+```cpp
+struct FAnimationData
+{
+	EAnimationType type = EAnimationType::NONE;
+
+	bool  isLoop = 0;
+	float intervalPerFrame = 0;
+
+	std::vector<SDL_Rect> frames;
+};
+```
+
+^475f27
+
+```cpp
+void CAnimation::Update(float deltaTime)
+{
+	FAnimationData* aniData = mAnimationStates[mCurrentState].get();
+
+	switch (aniData->type)
+	{
+		case EAnimationType::NONE:
+			break;
+
+		case EAnimationType::MOVE:
+		{
+			const FVector2D& currentPos = mTransform->GetWorldPos();
+
+			FVector2D posDelta = currentPos - mPrevPos;
+
+			mFrameInterval += posDelta.Length();
+
+			float frameTransitionDistance = aniData->intervalPerFrame / aniData->frames.size();
+
+			if (mFrameInterval >= frameTransitionDistance)
+			{
+				mCurrIdx = (mCurrIdx + 1) % aniData->frames.size();
+
+				mFrameInterval -= frameTransitionDistance;
+			}
+			mPrevPos = currentPos;
+		}
+		break;
+
+		case EAnimationType::TIME:
+		{
+			mFrameInterval += deltaTime;
+
+			if (mFrameInterval >= aniData->intervalPerFrame)
+			{
+				if (aniData->isLoop)
+				{
+					mCurrIdx = (mCurrIdx + 1) % aniData->frames.size();
+				}
+				else
+				{
+					mLooped = (mCurrIdx >= aniData->frames.size() - 1) ? true : false;
+					if (!mLooped)
+						mCurrIdx++;
+				}
+				mFrameInterval = 0.0f;
+			}
+		}
+		break;
+	}
+}
+```
+
+^bfc61d
+
+```cpp
+void SetState(EAnimationState state)
+{
+	if (mCurrentState != state)
+	{
+		mCurrentState = state;
+		mFrameInterval = 0.0f;
+		mCurrIdx = 0;
+	}
+}
+```
+
+^947c38
+
+```cpp
+CAnimation* CAnimation::Clone() const
+{
+	CAnimation* clone = CMemoryPoolManager::GetInst()->Allocate<CAnimation>();
+	*clone = *this;
+
+	return clone;
+}
+```
+
+^63afad
+
+---
+
+### CSpriteComponent
+```cpp
+class CSpriteComponent : public CComponent
+{
+public:
+	CSpriteComponent();
+	virtual ~CSpriteComponent();
+
+private:
+	std::shared_ptr<CTexture> mTexture;
+	CAnimation* mAnimation;
+	SDL_Rect mFrame;
+
+	SDL_RendererFlip mFlip;
+
+private:
+	virtual void Update(float deltaTime)        final;
+	virtual void Render(SDL_Renderer* renderer) final;
+	virtual void Release()                      final;
+
+public:
+	std::shared_ptr<CTexture> GetTexture() const { return mTexture; }
+	CAnimation* GetAnimation() const { return mAnimation; }
+
+	void SetTexture(const std::string& key);
+	void SetAnimation(const std::string& key);
+	void SetFrame(const std::string& key);
+
+	void SetFlip(SDL_RendererFlip flip) { mFlip = flip; }
+
+private:
+	const SDL_Rect& GetFrame() const;
+	SDL_Rect GetDest() const;
+
+	bool IsVisibleToCamera() const;
+	SDL_Rect GetCameraSpaceRect() const;
+};
+```
+
+^aa0928
+
+```cpp
+void CSpriteComponent::Update(float deltaTime)
+{
+	CComponent::Update(deltaTime);
+
+	if (mAnimation)
+		mAnimation->Update(deltaTime);
+}
+```
+
+^31ef87
+
+```cpp
+void CSpriteComponent::Render(SDL_Renderer* renderer)
+{
+	if (mTexture && IsVisibleToCamera())
+	{
+		const SDL_Rect& frame = GetFrame();
+		const SDL_Rect  dest  = GetCameraSpaceRect();
+
+		SDL_RenderCopyEx(renderer, mTexture->GetTexture(), &frame, &dest, 0.0, nullptr, mFlip);
+	}
+	CComponent::Render(renderer);
+}
+```
+
+^5639d3
+
+```cpp
+void CSpriteComponent::SetTexture(const std::string& key)
+{
+	mTexture = CAssetManager::GetInst()->GetTextureManager()->GetTexture(key);
+}
+```
+
+^f68fb3
+
+```cpp
+void CSpriteComponent::SetAnimation(const std::string& key)
+{
+	CAnimation* base = CAssetManager::GetInst()->GetAnimationManager()->GetAnimation(key);
+
+	if (base)
+	{
+		mAnimation = base->Clone();
+		mAnimation->mTransform = mTransform;
+	}
+}
+```
+
+^c0c05f
+
+```cpp
+void CSpriteComponent::SetFrame(const std::string& key)
+{
+	const SDL_Rect* const framePtr = CAssetManager::GetInst()->GetSpriteManager()->GetSpriteFrame(key);
+
+	mFrame = *framePtr;
+}
+```
+
+^bc4e7a
+
+---
+
+### CVFXComponent
+```cpp
+class CVFXComponent : public CComponent
+{
+public:
+	CVFXComponent();
+	virtual ~CVFXComponent();
+
+private:
+	std::shared_ptr<CTexture> mTexture;
+	CAnimation* mAnimation;
+
+	bool mPlayVFX;
+
+private:
+	virtual void Update(float deltaTime)        final;
+	virtual void Render(SDL_Renderer* renderer) final;
+	virtual void Release()                      final;
+
+public:
+	std::shared_ptr<CTexture> GetTexture() const { return mTexture; }
+	CAnimation* GetAnimation() const { return mAnimation; }
+
+	void SetTexture(const std::string& key);
+	void SetAnimation(const std::string& key);
+
+	void PlayVFX(const FVector2D& pos);
+
+private:
+	SDL_Rect GetDest() const;
+
+	bool IsVisibleToCamera() const;
+	SDL_Rect GetCameraSpaceRect() const;
+};
+```
+
+^17041f
+
+```cpp
+void CVFXComponent::Update(float deltaTime)
+{
+	CComponent::Update(deltaTime);
+
+	if (!mPlayVFX || !mAnimation)
+		return;
+
+	mAnimation->Update(deltaTime);
+
+	if (mAnimation->GetLooped())
+	{
+		mPlayVFX = false;
+		mAnimation->ResetLoop();
+	}
+}
+```
+
+^14b509
+
+```cpp
+void CVFXComponent::Render(SDL_Renderer* renderer)
+{
+	if (mPlayVFX && mTexture && IsVisibleToCamera())
+	{
+		const SDL_Rect& frame = mAnimation->GetFrame();
+		const SDL_Rect  dest  = GetCameraSpaceRect();
+
+		SDL_RenderCopy(renderer, mTexture->GetTexture(), &frame, &dest);
+	}
+	CComponent::Render(renderer);
+}
+```
+
+^71386f
+
+```cpp
+void CVFXComponent::SetTexture(const std::string& key)
+{
+	mTexture = CAssetManager::GetInst()->GetTextureManager()->GetTexture(key);
+}
+```
+
+^9ffdbb
+
+```cpp
+void CVFXComponent::SetAnimation(const std::string& key)
+{
+	CAnimation* base = CAssetManager::GetInst()->GetAnimationManager()->GetAnimation(key);
+
+	if (base)
+	{
+		mAnimation = base->Clone();
+		mAnimation->mTransform = mTransform;
+	}
+}
+```
+
+^788ffb
+
+```cpp
+void CVFXComponent::PlayVFX(const FVector2D& pos)
+{
+	if (mPlayVFX || !mAnimation)
+		return;
+
+	mPlayVFX = true;
+
+	mTransform->SetWorldPos(pos);
+	mAnimation->mCurrIdx = 0;
+	mAnimation->mFrameInterval = 0.0f;
+}
+```
+
+^9192ae
