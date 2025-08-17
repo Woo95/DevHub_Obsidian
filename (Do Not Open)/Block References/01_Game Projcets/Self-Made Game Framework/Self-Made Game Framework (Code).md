@@ -68,14 +68,12 @@ void CSceneManager::Update(float deltaTime)
 {
 	if (mPending.transition != ETransition::NONE)
 		ChangeApply();
-
+		
 	mScenes.back()->Update(deltaTime);
 }
 ```
 
 ^017baa
-
-#### Kor
 
 ```cpp
 void CSceneManager::ChangeApply()
@@ -100,8 +98,7 @@ void CSceneManager::ChangeApply()
 	default:
 		break;
 	}
-
-	// 새로운 씬 플래그 초기화
+	
 	mPending.transition   = ETransition::NONE;
 	mPending.pendingState = ESceneState::NONE;
 }
@@ -112,11 +109,9 @@ void CSceneManager::ChangeApply()
 ```cpp
 void CSceneManager::PushScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -128,8 +123,7 @@ void CSceneManager::PushScene()
 void CSceneManager::PopScene()
 {
 	assert(!mScenes.empty());
-
-	// 이전 씬 제거 및 리소스들 언로드
+	
 	CScene* oldScene = mScenes.back();
 	if (oldScene->Exit())
 	{
@@ -145,14 +139,11 @@ void CSceneManager::PopScene()
 ```cpp
 void CSceneManager::SwapScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
-
-	// 이전 씬 정리
+	
 	PopScene();
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -163,7 +154,6 @@ void CSceneManager::SwapScene()
 ```cpp
 void CSceneManager::ClearScenes()
 {
-	// 이전 모든 씬 정리
 	while (!mScenes.empty())
 		PopScene();
 }
@@ -174,14 +164,11 @@ void CSceneManager::ClearScenes()
 ```cpp
 void CSceneManager::ClearThenPushScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
-
-	// 이전 모든 씬 정리
+	
 	ClearScenes();
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -192,11 +179,9 @@ void CSceneManager::ClearThenPushScene()
 ```cpp
 void CSceneManager::SwapScene()
 {
-	// 새로운 씬 생성 및 리소스들 로드
 	CScene* newScene = GetSceneFromState(mPending.pendingState);
 	newScene->LoadResources();
 	
-	// 이전 씬 제거 및 리소스들 언로드
 	CScene* oldScene = mScenes.back();
 	if (oldScene->Exit())
 	{
@@ -204,8 +189,7 @@ void CSceneManager::SwapScene()
 		SAFE_DELETE(oldScene);
 		mScenes.pop_back();
 	}
-
-	// 새로운 씬 추가
+	
 	mScenes.push_back(newScene);
 	mScenes.back()->Enter();
 }
@@ -213,7 +197,6 @@ void CSceneManager::SwapScene()
 
 ^71791d
 
-#### Eng & Kor
 ```cpp
 class CScene abstract
 {
@@ -337,13 +320,13 @@ void CScene::Update(float deltaTime)
 {
     for (CLayer* layer : mLayers)
         layer->Update(deltaTime);
-
+        
     if (mSceneCollision)
         mSceneCollision->Update(deltaTime);
-
+        
     if (mCamera)
         mCamera->Update(deltaTime);
-
+        
     if (mSceneUI)
         mSceneUI->Update(deltaTime);
 }
@@ -356,7 +339,7 @@ void CScene::LateUpdate(float deltaTime)
 {
     for (CLayer* layer : mLayers)
         layer->LateUpdate(deltaTime);
-
+        
     if (mSceneCollision)
 	    mSceneCollision->LateUpdate(deltaTime);
 	    
@@ -386,12 +369,12 @@ T* InstantiateObject(const std::string& name, ELayer::Type type)
 {
 	if (!CMemoryPoolManager::GetInst()->HasPool<T>())
 		CMemoryPoolManager::GetInst()->CreatePool<T>(initialCapacity);
-
+		
 	T* obj = CMemoryPoolManager::GetInst()->Allocate<T>();
 	obj->SetName(name);
 	obj->mScene = this;
 	obj->mLayer = mLayers[type];
-
+	
 	if (!obj->Init())
 	{
 		CMemoryPoolManager::GetInst()->Deallocate<T>(obj);
@@ -416,19 +399,19 @@ class CLayer
 public:
 	CLayer();
 	~CLayer();
-
+	
 private:
     std::vector<class CObject*> mObjects;
 	ESort::Type mSort = ESort::Y;
-
+	
 protected:
 	void Update(float deltaTime);
 	void LateUpdate(float deltaTime);
 	void Render(SDL_Renderer* renderer);
-
+	
 public:
 	void AddObject(CObject* obj) { mObjects.emplace_back(obj); }
-
+	
 private:
 	static bool SortY(CObject* objA, CObject* objB);
 };
@@ -456,7 +439,7 @@ void CLayer::Update(float deltaTime)
         if (!obj->GetActive())
         {
             obj->Destroy();
-
+            
             continue;
         }
         else if (!obj->GetEnable())
@@ -502,7 +485,7 @@ void CLayer::Render(SDL_Renderer* renderer)
 {
     if (mSort == ESort::Type::Y)
 	    std::sort(mObjects.begin(), mObjects.end(), SortY);
-
+	    
     for (CObject* obj : mObjects)
     {
         if (!obj->GetActive() || !obj->GetEnable())
@@ -524,7 +507,7 @@ class CObject abstract : public CEntityBase
 {
 	friend class CScene;
 	friend class CLayer;
-
+	
 protected:
 	CObject();
 	virtual ~CObject();
@@ -629,10 +612,10 @@ T* AllocateComponent(const std::string& name)
 {
 	if (!CMemoryPoolManager::GetInst()->HasPool<T>())
 		CMemoryPoolManager::GetInst()->CreatePool<T>(initialCapacity);
-
+		
 	T* component = CMemoryPoolManager::GetInst()->Allocate<T>();
 	component->SetName(name);
-
+	
 	return component;
 }
 ```
@@ -789,3 +772,791 @@ void CComponent::Render(SDL_Renderer* renderer)
 ```
 
 ^7c581f
+
+---
+
+### CAnimation
+```cpp
+class CAnimation
+{
+    friend class CAnimationManager;
+    friend class CSpriteComponent;
+    friend class CVFXComponent;
+    
+public:
+    CAnimation();
+    ~CAnimation();
+    
+protected:
+    std::unordered_map<EAnimationState, std::shared_ptr<FAnimationData>> mAnimationStates;
+    EAnimationState mCurrentState;
+    
+    // for EAnimationType::MOVE
+    CTransform* mTransform;
+    FVector2D mPrevPos;
+    
+    // for EAnimationType::MOVE & EAnimationType::TIME
+    float mFrameInterval;
+    int   mCurrIdx;
+    bool  mLooped;
+    
+private:
+    void Update(float deltaTime);
+    void Release();
+    
+    CAnimation* Clone() const;
+    
+public:
+    const SDL_Rect& GetFrame();
+    bool GetLooped() const;
+    void ResetLoop();
+    
+    void SetState(EAnimationState state);
+    
+private:
+    void AddState(EAnimationState state, std::shared_ptr<FAnimationData> data);
+};
+```
+
+^d17f0e
+
+```cpp
+enum class EAnimationState : unsigned char
+{
+	NONE,
+	
+	IDLE,
+	WALK,
+	JUMP,
+	
+	VFX
+};
+```
+
+^3718fb
+
+```cpp
+struct FAnimationData
+{
+	EAnimationType type = EAnimationType::NONE;
+	
+	bool  isLoop = 0;
+	float intervalPerFrame = 0;
+	
+	std::vector<SDL_Rect> frames;
+};
+```
+
+^475f27
+
+```cpp
+void CAnimation::Update(float deltaTime)
+{
+	FAnimationData* aniData = mAnimationStates[mCurrentState].get();
+	
+	switch (aniData->type)
+	{
+		case EAnimationType::NONE:
+			break;
+			
+		case EAnimationType::MOVE:
+		{
+			const FVector2D& currentPos = mTransform->GetWorldPos();
+			
+			FVector2D posDelta = currentPos - mPrevPos;
+			
+			mFrameInterval += posDelta.Length();
+			
+			float frameTransitionDistance = aniData->intervalPerFrame / aniData->frames.size();
+			
+			if (mFrameInterval >= frameTransitionDistance)
+			{
+				mCurrIdx = (mCurrIdx + 1) % aniData->frames.size();
+				
+				mFrameInterval -= frameTransitionDistance;
+			}
+			mPrevPos = currentPos;
+		}
+		break;
+		
+		case EAnimationType::TIME:
+		{
+			mFrameInterval += deltaTime;
+			
+			if (mFrameInterval >= aniData->intervalPerFrame)
+			{
+				if (aniData->isLoop)
+				{
+					mCurrIdx = (mCurrIdx + 1) % aniData->frames.size();
+				}
+				else
+				{
+					mLooped = (mCurrIdx >= aniData->frames.size() - 1) ? true : false;
+					if (!mLooped)
+						mCurrIdx++;
+				}
+				mFrameInterval = 0.0f;
+			}
+		}
+		break;
+	}
+}
+```
+
+^bfc61d
+
+```cpp
+void SetState(EAnimationState state)
+{
+	if (mCurrentState != state)
+	{
+		mCurrentState = state;
+		mFrameInterval = 0.0f;
+		mCurrIdx = 0;
+	}
+}
+```
+
+^947c38
+
+```cpp
+CAnimation* CAnimation::Clone() const
+{
+	CAnimation* clone = CMemoryPoolManager::GetInst()->Allocate<CAnimation>();
+	*clone = *this;
+	
+	return clone;
+}
+```
+
+^63afad
+
+---
+
+### CSpriteComponent
+```cpp
+class CSpriteComponent : public CComponent
+{
+public:
+	CSpriteComponent();
+	virtual ~CSpriteComponent();
+	
+private:
+	std::shared_ptr<CTexture> mTexture;
+	CAnimation* mAnimation;
+	SDL_Rect mFrame;
+	
+	SDL_RendererFlip mFlip;
+	
+private:
+	virtual void Update(float deltaTime)        final;
+	virtual void Render(SDL_Renderer* renderer) final;
+	virtual void Release()                      final;
+	
+public:
+	std::shared_ptr<CTexture> GetTexture() const { return mTexture; }
+	CAnimation* GetAnimation() const { return mAnimation; }
+	
+	void SetTexture(const std::string& key);
+	void SetAnimation(const std::string& key);
+	void SetFrame(const std::string& key);
+	
+	void SetFlip(SDL_RendererFlip flip) { mFlip = flip; }
+
+private:
+	const SDL_Rect& GetFrame() const;
+	SDL_Rect GetDest() const;
+	
+	bool IsVisibleToCamera() const;
+	SDL_Rect GetCameraSpaceRect() const;
+};
+```
+
+^aa0928
+
+```cpp
+void CSpriteComponent::Update(float deltaTime)
+{
+	CComponent::Update(deltaTime);
+	
+	if (mAnimation)
+		mAnimation->Update(deltaTime);
+}
+```
+
+^31ef87
+
+```cpp
+void CSpriteComponent::Render(SDL_Renderer* renderer)
+{
+	if (mTexture && IsVisibleToCamera())
+	{
+		const SDL_Rect& frame = GetFrame();
+		const SDL_Rect  dest  = GetCameraSpaceRect();
+		
+		SDL_RenderCopyEx(renderer, mTexture->GetTexture(), &frame, &dest, 0.0, nullptr, mFlip);
+	}
+	CComponent::Render(renderer);
+}
+```
+
+^5639d3
+
+```cpp
+void CSpriteComponent::SetTexture(const std::string& key)
+{
+	mTexture = CAssetManager::GetInst()->GetTextureManager()->GetTexture(key);
+}
+```
+
+^f68fb3
+
+```cpp
+void CSpriteComponent::SetAnimation(const std::string& key)
+{
+	CAnimation* base = CAssetManager::GetInst()->GetAnimationManager()->GetAnimation(key);
+	
+	if (base)
+	{
+		mAnimation = base->Clone();
+		mAnimation->mTransform = mTransform;
+	}
+}
+```
+
+^c0c05f
+
+```cpp
+void CSpriteComponent::SetFrame(const std::string& key)
+{
+	const SDL_Rect* const framePtr = CAssetManager::GetInst()->GetSpriteManager()->GetSpriteFrame(key);
+	
+	mFrame = *framePtr;
+}
+```
+
+^bc4e7a
+
+---
+
+### CVFXComponent
+```cpp
+class CVFXComponent : public CComponent
+{
+public:
+	CVFXComponent();
+	virtual ~CVFXComponent();
+	
+private:
+	std::shared_ptr<CTexture> mTexture;
+	CAnimation* mAnimation;
+	
+	bool mPlayVFX;
+	
+private:
+	virtual void Update(float deltaTime)        final;
+	virtual void Render(SDL_Renderer* renderer) final;
+	virtual void Release()                      final;
+	
+public:
+	std::shared_ptr<CTexture> GetTexture() const { return mTexture; }
+	CAnimation* GetAnimation() const { return mAnimation; }
+	
+	void SetTexture(const std::string& key);
+	void SetAnimation(const std::string& key);
+	
+	void PlayVFX(const FVector2D& pos);
+	
+private:
+	SDL_Rect GetDest() const;
+	
+	bool IsVisibleToCamera() const;
+	SDL_Rect GetCameraSpaceRect() const;
+};
+```
+
+^17041f
+
+```cpp
+void CVFXComponent::Update(float deltaTime)
+{
+	CComponent::Update(deltaTime);
+	
+	if (!mPlayVFX || !mAnimation)
+		return;
+		
+	mAnimation->Update(deltaTime);
+	
+	if (mAnimation->GetLooped())
+	{
+		mPlayVFX = false;
+		mAnimation->ResetLoop();
+	}
+}
+```
+
+^14b509
+
+```cpp
+void CVFXComponent::Render(SDL_Renderer* renderer)
+{
+	if (mPlayVFX && mTexture && IsVisibleToCamera())
+	{
+		const SDL_Rect& frame = mAnimation->GetFrame();
+		const SDL_Rect  dest  = GetCameraSpaceRect();
+		
+		SDL_RenderCopy(renderer, mTexture->GetTexture(), &frame, &dest);
+	}
+	CComponent::Render(renderer);
+}
+```
+
+^71386f
+
+```cpp
+void CVFXComponent::SetTexture(const std::string& key)
+{
+	mTexture = CAssetManager::GetInst()->GetTextureManager()->GetTexture(key);
+}
+```
+
+^9ffdbb
+
+```cpp
+void CVFXComponent::SetAnimation(const std::string& key)
+{
+	CAnimation* base = CAssetManager::GetInst()->GetAnimationManager()->GetAnimation(key);
+	
+	if (base)
+	{
+		mAnimation = base->Clone();
+		mAnimation->mTransform = mTransform;
+	}
+}
+```
+
+^788ffb
+
+```cpp
+void CVFXComponent::PlayVFX(const FVector2D& pos)
+{
+	if (mPlayVFX || !mAnimation)
+		return;
+		
+	mPlayVFX = true;
+	
+	mTransform->SetWorldPos(pos);
+	mAnimation->mCurrIdx = 0;
+	mAnimation->mFrameInterval = 0.0f;
+}
+```
+
+^9192ae
+
+---
+### CInputUtils
+```cpp
+enum class EKeyAction : unsigned char
+{
+	PRESS,
+	HOLD,
+	RELEASE,
+	MAX
+};
+```
+
+^0b8d0a
+
+```cpp
+struct FKeyState
+{
+	bool Press   = false;
+	bool Hold    = false;
+	bool Release = false;
+};
+```
+
+^186449
+
+```cpp
+struct FBindFunction
+{
+	void* obj = nullptr;
+	std::function<void()> func;
+};
+```
+
+^0cf9f9
+
+```cpp
+struct FBinder
+{
+	std::vector<std::pair<SDL_Scancode, EKeyAction>> Keys;
+	std::vector<std::pair<Uint8, EKeyAction>> Mouses;
+
+	std::vector<FBindFunction*> Functions;
+};
+```
+
+^1318b8
+
+---
+
+### CInputManager
+```cpp
+class CInputManager
+{
+	friend class CGameManager;
+
+private:
+	CInputManager();
+	~CInputManager();
+
+private:
+	static CInputManager* mInst;
+
+	// for keyboard
+	std::unordered_map<SDL_Scancode, FKeyState> mKeys;
+
+	// for mouse
+	std::unordered_map<Uint8, FKeyState> mMouses;
+	FVector2D mMousePos = FVector2D::ZERO;
+
+private:
+	bool Init();
+	bool RegisterKey(SDL_Scancode keyCode);
+	bool RegisterMouse(Uint8 button);
+
+	void Update();
+	void UpdateInputState();
+	void HandleInputState(bool& press, bool& hold, bool& release, bool isPressed);
+
+public:
+	bool GetKeyState(SDL_Scancode keyCode, EKeyAction action);
+	bool GetMouseButtonState(Uint8 button, EKeyAction action);
+	const FVector2D& GetMousePos() const { return mMousePos; }
+
+public:
+	static CInputManager* GetInst()
+	{
+		if (!mInst)
+			mInst = new CInputManager;
+		return mInst;
+	}
+
+	static void DestroyInst()
+	{
+		SAFE_DELETE(mInst);
+	}
+};
+```
+
+^1fdcb1
+
+```cpp
+bool CInputManager::RegisterKey(SDL_Scancode keyCode)
+{
+	if (mKeys.find(keyCode) != mKeys.end())
+		return false;
+
+	FKeyState state;
+	mKeys[keyCode] = state;
+
+	return true;
+}
+```
+
+^9a862b
+
+```cpp
+bool CInputManager::RegisterMouse(Uint8 button)
+{
+	if (mMouses.find(button) != mMouses.end())
+		return false;
+
+	FKeyState state;
+	mMouses[button] = state;
+
+	return true;
+}
+```
+
+^991446
+
+```cpp
+void CInputManager::UpdateInputState()
+{
+	// FOR KEYBOARD //
+	{
+		const Uint8* keyboardState = SDL_GetKeyboardState(nullptr);
+
+		std::unordered_map<SDL_Scancode, FKeyState>::iterator iter = mKeys.begin();
+		std::unordered_map<SDL_Scancode, FKeyState>::iterator iterEnd = mKeys.end();
+
+		for (; iter != iterEnd; iter++)
+		{
+			bool isPressed = keyboardState[iter->first];
+			FKeyState& key = iter->second;
+
+			HandleInputState(key.Press, key.Hold, key.Release, isPressed);
+		}
+	}
+
+	// FOR MOUSE //
+	{
+		int mouseX, mouseY;
+		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+
+		mMousePos = { (float)mouseX, (float)mouseY };
+
+		std::unordered_map<Uint8, FKeyState>::iterator iter = mMouses.begin();
+		std::unordered_map<Uint8, FKeyState>::iterator iterEnd = mMouses.end();
+
+		for (; iter != iterEnd; iter++)
+		{
+			bool isPressed = mouseState & SDL_BUTTON(iter->first);
+			FKeyState& mouse = iter->second;
+
+			HandleInputState(mouse.Press, mouse.Hold, mouse.Release, isPressed);
+		}
+	}
+}
+```
+
+^242c9b
+
+```cpp
+void CInputManager::HandleInputState(bool& press, bool& hold, bool& release, bool isPressed)
+{
+	if (isPressed)
+	{
+		if (!hold)
+		{
+			press = true;
+			hold  = true;
+		}
+		else
+			press = false;
+	}
+	else
+	{
+		if (hold)
+		{
+			press   = false;
+			hold    = false;
+			release = true;
+		}
+		else if (release)
+			release = false;
+	}
+}
+```
+
+^646ee8
+
+```cpp
+bool CInputManager::GetKeyState(SDL_Scancode keyCode, EKeyAction action)
+{
+	switch (action)
+	{
+	case EKeyAction::PRESS:
+		return mKeys[keyCode].Press;
+	case EKeyAction::HOLD:
+		return mKeys[keyCode].Hold;
+	case EKeyAction::RELEASE:
+		return mKeys[keyCode].Release;
+	default:
+		return false;
+	}
+}
+```
+
+^a61a23
+
+```cpp
+bool CInputManager::GetMouseButtonState(Uint8 button, EKeyAction action)
+{
+	switch (action)
+	{
+		case EKeyAction::PRESS:
+			return mMouses[button].Press;
+		case EKeyAction::HOLD:
+			return mMouses[button].Hold;
+		case EKeyAction::RELEASE:
+			return mMouses[button].Release;
+		default:
+			return false;
+	}
+}
+```
+
+^7fc416
+
+---
+### CInputComponent
+```cpp
+class CInputComponent : public CComponent
+{
+public:
+	CInputComponent();
+	virtual ~CInputComponent();
+
+private:
+	std::unordered_map<std::string, FBinder*> mBinders;
+
+private:
+	virtual void Update(float deltaTime) final;
+	virtual void Release() final;
+
+public:
+	template <typename T>
+	void AddFuncToBinder(const std::string& key, T* obj, void(T::* func)());
+	void AddFuncToBinder(const std::string& key, void* obj, const std::function<void()>& func);
+
+	void DeleteFuncFromBinder(const std::string& key, void* obj);
+
+	void AddInputToBinder(const std::string& key, SDL_Scancode keyCode, EKeyAction action);
+	void AddInputToBinder(const std::string& key, Uint8 button, EKeyAction action);
+};
+```
+
+^a6482f
+
+```cpp
+void CInputComponent::Update(float deltaTime)
+{
+	CComponent::Update(deltaTime);
+
+	std::unordered_map<std::string, FBinder*>::iterator iter = mBinders.begin();
+	std::unordered_map<std::string, FBinder*>::iterator iterEnd = mBinders.end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		FBinder* binder = iter->second;
+		if (binder->Keys.empty() && binder->Mouses.empty())
+			continue;
+
+		bool match = true;
+
+		// KEYBOARD //
+		for (const auto& binderKey : binder->Keys)
+		{
+			const SDL_Scancode& key = binderKey.first;
+			const EKeyAction& action = binderKey.second;
+
+			if (!CInputManager::GetInst()->GetKeyState(key, action))
+			{
+				match = false;
+				break;
+			}
+		}
+
+		if (!match)
+			continue;
+
+		// MOUSE //
+		for (const auto& binderMouse : binder->Mouses)
+		{
+			const Uint8& mouse = binderMouse.first;
+			const EKeyAction& action = binderMouse.second;
+
+			if (!CInputManager::GetInst()->GetMouseButtonState(mouse, action))
+			{
+				match = false;
+				break;
+			}
+		}
+
+		if (match)
+		{
+			for (FBindFunction* bindFunc : binder->Functions)
+				bindFunc->func();
+		}
+	}
+}
+```
+
+^196a5f
+
+```cpp
+// Bind functions (lambda, std::function)
+void CInputComponent::AddFunctionToBinder(const std::string& key, void* obj, const std::function<void()>& func)
+{
+	FBinder* binder = mBinders[key];
+
+	if (!binder)
+	{
+		binder = CMemoryPoolManager::GetInst()->Allocate<FBinder>();
+		mBinders[key] = binder;
+	}
+
+	FBindFunction* binderFunc = CMemoryPoolManager::GetInst()->Allocate<FBindFunction>();
+
+	binderFunc->obj = obj;
+	binderFunc->func = func;
+
+	binder->Functions.emplace_back(binderFunc);
+}
+
+// Bind functions (member)
+template <typename T>
+void CInputComponent::AddFunctionToBinder<T>(const std::string& key, T* obj, void(T::* func)())
+{
+	AddFunctionToBinder(key, obj, std::bind(func, obj));
+}
+```
+
+^22375e
+
+```cpp
+void CInputComponent::DeleteFunctionFromBinder(const std::string& key, void* obj)
+{
+	FBinder* binder = mBinders[key];
+
+	if (!binder)
+		return;
+
+	std::vector<FBindFunction*>& functions = binder->Functions;
+
+	for (size_t i = functions.size(); i > 0; i--)
+	{
+		FBindFunction* bindFunc = functions[i - 1];
+
+		if (bindFunc->obj == obj)
+		{
+			std::swap(functions[i - 1], functions.back());
+			functions.pop_back();
+
+			CMemoryPoolManager::GetInst()->DeallocateButKeepPool<FBindFunction>(bindFunc);
+		}
+	}
+}
+```
+
+^94cde9
+
+```cpp
+// keyboard
+void AddInputToBinder(const std::string& key, SDL_Scancode keyCode, EKeyAction action)
+{
+	FBinder* binder = mBinders[key];
+
+	if (!binder)
+		return;
+
+	binder->Keys.emplace_back(std::make_pair(keyCode, action));
+}
+
+// mouse
+void AddInputToBinder(const std::string& key, Uint8 button, EKeyAction action)
+{
+	FBinder* binder = mBinders[key];
+
+	if (!binder)
+		return;
+
+	binder->Mouses.emplace_back(std::make_pair(button, action));
+}
+```
+
+^cc72ca
