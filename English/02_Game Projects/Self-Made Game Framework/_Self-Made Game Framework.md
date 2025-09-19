@@ -16,7 +16,7 @@ The above image is a **simplified design diagram**, focused on the core executio
 ---
 ## **📂 Project Exploration**
 ### **1. Key Implementations** (Note in Progress)
-1. **[[Asset Manager Memory Optimization Design]]**
+1. **[[01_Asset Manager Memory Optimization Design|Asset Manager Memory Optimization Design]]**
 2. **[[Scene Manager and Resource Optimization Design]]**
 3. **[[Scene-Layer-Object-Component Hierarchy]]**
 	- **[[Built-in Component Set]]**
